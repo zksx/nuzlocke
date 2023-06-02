@@ -26,7 +26,8 @@ source nuzlocke-env/bin/activate
 
 ### Installing Requirements
 
-Now that the virtual enviroment is set up we can install the dependencies from requirements.txt into nuzlocke-venv. Note this virtual eniroment needs to be activate anytime you run the script.
+Now that the virtual enviroment is set up we can install the dependencies from requirements.txt into nuzlocke-venv. 
+**_Note_** this virtual eniroment needs to be activate anytime you run the script.
 ```bash
 pip3 install -r requirements.txt
 ```
