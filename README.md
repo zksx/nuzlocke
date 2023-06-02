@@ -6,17 +6,17 @@ A python script that starts a chatbot for a specific youtube channell. It will w
 <details>
   <summary>🏁 Table of Contents</summary>
   <ol>
-    <li><a href="#-Set-Up">Set Up</a></li>
+    <li><a href="#set-up">Set Up</a></li>
     <ul>
-      <li><a href="##-1-Using-Venv">Using Venv</a></li>
-      <li><a href="##-2-Installing-Requirements">Installing Requirements</a></li>
-      <li><a href="##-2-Setting-up-Youtube-API">Setting up Youtube-API</a></li>
+      <li><a href="#1-using-venv">Using Venv</a></li>
+      <li><a href="#2-installing-requirements">Installing Requirements</a></li>
+      <li><a href="#3-setting-up-youtube-api">Setting up Youtube-API</a></li>
     </ul>
     <li>
       <a href="usage">Usage</a>
       <ul>
         <li><a href="#1-running-the-program">Running the Program</a></li>
-        <li><a href="##-2-Commands-via-Youtube-chat">Commands via Youtube chat</a></li>
+        <li><a href="#2-commands-via-youtube-chat">Commands via Youtube chat</a></li>
       </ul>
     </li>
   </ol>
@@ -62,6 +62,8 @@ To use the Youtube API you'll need threee majors things which are
     - it is import for the generated client secrets file to be named "client_secrets.json"
     - "client_secrets.json" should be placed in the main directory
  3. Grant yourself access to the program. Naviagate back over to http://console.cloud.google.com and click on the "OAuth constent screen tab". There will be a button called "ADD USERS", make sure to add your email and double click save. You should see your email added to the "User Information" Table.
+
+# Usage
 
 ## 1. Running the program
 
