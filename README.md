@@ -4,7 +4,7 @@ A python script that starts a chatbot for a specific youtube channell. It will w
 
 ## Set up 
 
-### Using Venv
+### 1. Using Venv
 
 I recommend starting a virtual environment any time running this program. This helps keeps all the dependencies in one place and assures the program isn't using newer/older versions of dependencies found in requirements.txt
 
@@ -24,7 +24,7 @@ source nuzlocke-env/bin/activate
 ```
 **_Note_**: this virtual enviroment needs to be activate anytime you run the script.
 
-### Installing Requirements
+### 2. Installing Requirements
 
 Now that the virtual enviroment is set up we can install the dependencies from requirements.txt into nuzlocke-venv. 
 **_Note_** this virtual eniroment needs to be activate anytime you run the script.
@@ -32,7 +32,7 @@ Now that the virtual enviroment is set up we can install the dependencies from r
 pip3 install -r requirements.txt
 ```
 
-### Setting up Youtube-API
+### 3. Setting up Youtube-API
 An order to make this process at easy as possible I'm going to link two youtube videos by Corey Schafer on how to enable and access the Youtube API using client secrets.
 
 To use the Youtube API you'll need threee majors things which are
