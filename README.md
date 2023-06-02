@@ -13,9 +13,9 @@ A python script that starts a chatbot for a specific youtube channell. It will w
       <li><a href="##-2-Setting-up-Youtube-API">Setting up Youtube-API</a></li>
     </ul>
     <li>
-      <a href="#-usage">Create your own MLOps Platform</a>
+      <a href="#-usage">Usage</a>
       <ul>
-        <li><a href="##-1-running-the-program">Deploy ZenML</a></li>
+        <li><a href="##-1-running-the-program">Running the Program</a></li>
         <li><a href="##-2-Commands-via-Youtube-chat">Commands via Youtube chat</a></li>
       </ul>
     </li>
