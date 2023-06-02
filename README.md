@@ -13,7 +13,7 @@ A python script that starts a chatbot for a specific youtube channell. It will w
       <li><a href="##-2-Setting-up-Youtube-API">Setting up Youtube-API</a></li>
     </ul>
     <li>
-      <a href="#-usage">Usage</a>
+      <a href="usage">Usage</a>
       <ul>
         <li><a href="##-1-running-the-program">Running the Program</a></li>
         <li><a href="##-2-Commands-via-Youtube-chat">Commands via Youtube chat</a></li>
@@ -63,7 +63,7 @@ To use the Youtube API you'll need threee majors things which are
     - "client_secrets.json" should be placed in the main directory
  3. Grant yourself access to the program. Naviagate back over to http://console.cloud.google.com and click on the "OAuth constent screen tab". There will be a button called "ADD USERS", make sure to add your email and double click save. You should see your email added to the "User Information" Table.
 
-# Usage
+# Usage <a name="usage">Usage</a>
 
 ## 1. Running the program
 
