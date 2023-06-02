@@ -52,9 +52,11 @@ python3 yt.py <CHANNEL_ID>
 ```
  If your not sure how to find a channels id follow this link https://support.google.com/youtube/answer/3250431?hl=en. It's also possible to find other channels id's by using Youtube's API.
  
-The first time the program is ran it will ask for access to a google account an order to carry out commands. 
+The first time the program is ran it will ask for access to a google account an order to carry out commands. Google will warn the app isn't verified, click continue.
 
 _**NOTE:**_ The account you choose will be the account replying to commands in chat. It would be worth it to set up a new google account if you want a fully dedicated bot so your personal account isn't replying to users in youtube chat.
+
+You may see an error print out on the terminal. Give it a few minutes before retrying to run the program.
  
  
 
