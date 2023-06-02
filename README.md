@@ -22,7 +22,7 @@ Now activate the virtual enviroment use the following command:
 ```bash
 source nuzlocke-env/bin/activate
 ```
-_Note this virtual enviroment needs to be activate anytime you run the script._
+**_Note_**: this virtual enviroment needs to be activate anytime you run the script.
 
 ### Installing Requirements
 
