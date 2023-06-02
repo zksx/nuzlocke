@@ -6,7 +6,7 @@ A python script that starts a chatbot for a specific youtube channell. It will w
 <details>
   <summary>🏁 Table of Contents</summary>
   <ol>
-    <li><a href="#-set-up">Introduction</a></li>
+    <li><a href="#-set-up">Set Up</a></li>
     <li><a href="##-1-Using-Venv">Quickstart</a></li>
     <li>
       <a href="#-create-your-own-mlops-platform">Create your own MLOps Platform</a>
@@ -24,7 +24,7 @@ A python script that starts a chatbot for a specific youtube channell. It will w
   </ol>
 </details>
 
-# Set up 
+# Set Up 
 
 ## 1. Using Venv
 
