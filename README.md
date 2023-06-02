@@ -93,3 +93,19 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 # Unban all users that had been banned from being released after the player wins the game.
 !victory
 ```
+
+# Help
+
+## 1. Commands defined
+
+So what is a command defined as in this program? Is it the full message a user sends into the chat such as shown below?
+```zsh 
+!assign snorlax zksx
+```
+
+Or is it just the first section of the full message containing "!assign" section? It gets little muddy here, and it doesn't seem like there is a full concises if a command is just the first section or all the sections together. In order to help differentiate this confusion I've decided to call the first section the "action phrase" and the full sections a command. so for instance assigning snorlax to the user zksx is a command. While just assigning in the action of the command. Here's a image to help illastate what i mean.
+
+The following command only has 1 section, called the action section. Usally 
+```bash
+!victory
+```
