@@ -45,6 +45,8 @@ To use the Youtube API you'll need threee majors things which are
 
 ## Usage
 
+### Running the program
+
 Now the program is ready to run.
 
 In order to start up the program run the yt.py script with a youtube channels id. If your not sure how to find a channels id follow this link https://support.google.com/youtube/answer/3250431?hl=en. It's also possible to find other channels id's by using Youtube's API.
@@ -56,3 +58,17 @@ python3 yt.py <CHANNEL_ID>
 The first time the program is ran it will ask for access to a google account an order to carry out commands. Google will warn the app isn't verified, click continue.
 
 _**NOTE:**_ The account you choose will be the account replying to commands in chat. It would be worth it to set up a new google account if you want a fully dedicated bot so your personal account isn't replying to users in youtube chat.
+
+### Commands via Youtube chat
+
+# assigns the pokemon snorlax to zksx
+!assign snorlax zksx
+
+# releases snorlax, thereby banning zksx
+!release snorlax
+
+# Releases all pokemon caught in this run after the players party is wiped.
+!newrun
+
+# Unban all users that had been banned from being released after the player wins the game.
+!victory
