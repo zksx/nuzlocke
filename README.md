@@ -2,9 +2,31 @@
 
 A python script that starts a chatbot for a specific youtube channell. It will wait for a stream for that youtube channel to go live and join once it finds one. It will then wait for commands from mods/owner of the stream and execute on those commands.
 
-## Set up 
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>🏁 Table of Contents</summary>
+  <ol>
+    <li><a href="#-set-up">Introduction</a></li>
+    <li><a href="##-1-Using-Venv">Quickstart</a></li>
+    <li>
+      <a href="#-create-your-own-mlops-platform">Create your own MLOps Platform</a>
+      <ul>
+        <li><a href="##-1-deploy-zenml">Deploy ZenML</a></li>
+        <li><a href="#-2-deploy-stack-components">Deploy Stack Components</a></li>
+        <li><a href="#-3-create-a-pipeline">Create a Pipeline</a></li>
+        <li><a href="#-4-start-the-dashboard">Start the Dashboard</a></li>
+      </ul>
+    </li>
+    <li><a href="#-roadmap">Roadmap</a></li>
+    <li><a href="#-contributing-and-community">Contributing and Community</a></li>
+    <li><a href="#-getting-help">Getting Help</a></li>
+    <li><a href="#-license">License</a></li>
+  </ol>
+</details>
 
-### 1. Using Venv
+# Set up 
+
+## 1. Using Venv
 
 I recommend starting a virtual environment any time running this program. This helps keeps all the dependencies in one place and assures the program isn't using newer/older versions of dependencies found in requirements.txt
 
@@ -24,7 +46,7 @@ source nuzlocke-env/bin/activate
 ```
 **_Note_**: this virtual enviroment needs to be activate anytime you run the script.
 
-### 2. Installing Requirements
+## 2. Installing Requirements
 
 Now that the virtual enviroment is set up we can install the dependencies from requirements.txt into nuzlocke-venv. 
 **_Note_** this virtual eniroment needs to be activate anytime you run the script.
@@ -32,7 +54,7 @@ Now that the virtual enviroment is set up we can install the dependencies from r
 pip3 install -r requirements.txt
 ```
 
-### 3. Setting up Youtube-API
+## 3. Setting up Youtube-API
 An order to make this process at easy as possible I'm going to link two youtube videos by Corey Schafer on how to enable and access the Youtube API using client secrets.
 
 To use the Youtube API you'll need threee majors things which are
@@ -43,9 +65,9 @@ To use the Youtube API you'll need threee majors things which are
     - "client_secrets.json" should be placed in the main directory
  3. Grant yourself access to the program. Naviagate back over to http://console.cloud.google.com and click on the "OAuth constent screen tab". There will be a button called "ADD USERS", make sure to add your email and double click save. You should see your email added to the "User Information" Table.
 
-## Usage
+# Usage
 
-### 1. Running the program
+## 1. Running the program
 
 Now the program is ready to run.
 
@@ -59,7 +81,7 @@ The first time the program is ran it will ask for access to a google account an 
 
 _**NOTE:**_ The account you choose will be the account replying to commands in chat. It would be worth it to set up a new google account if you want a fully dedicated bot so your personal account isn't replying to users in youtube chat.
 
-### 2. Commands via Youtube chat
+## 2. Commands via Youtube chat
 ```python
 # assigns the pokemon snorlax to zksx
 !assign snorlax zksx
