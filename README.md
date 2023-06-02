@@ -13,7 +13,7 @@ A python script that starts a chatbot for a specific youtube channell. It will w
       <li><a href="#3-setting-up-youtube-api">Setting up Youtube-API</a></li>
     </ul>
     <li>
-      <a href="usage">Usage</a>
+      <a href="#usage">Usage</a>
       <ul>
         <li><a href="#1-running-the-program">Running the Program</a></li>
         <li><a href="#2-commands-via-youtube-chat">Commands via Youtube chat</a></li>
