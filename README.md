@@ -13,7 +13,7 @@ First install virtualenv using pip3
 pip3 install virtualenv
 ```
 
-Then to start the virtual enviroment with the name 'nuzlocke-venv' use the following command:
+Then to create the virtual enviroment with the name 'nuzlocke-venv' use the following command:
 ```bash
 python3 -m venv nuzlocke-venv
 ```
