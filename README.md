@@ -18,14 +18,19 @@ Then to create the virtual enviroment with the name 'nuzlocke-venv' use the foll
 python3 -m venv nuzlocke-venv
 ```
 
-To activate the virtual enviroment use the following command:
+Now activate the virtual enviroment use the following command:
 ```bash
 source nuzlocke-env/bin/activate
 ```
+**Note this virtual eniroment needs to be activate anytime you run the script.**
 
 ### Installing Requirements
 
-Know that the virtual enviroment is set up we can install the dependencies from requirements.txt into the nuzlocke-venv.
+Now that the virtual enviroment is set up we can install the dependencies from requirements.txt into nuzlocke-venv. Note this virtual eniroment needs to be activate anytime you run the script.
 ```bash
 pip3 install -r requirements.txt
 ```
+
+### Setting up Youtube-API
+
+You'll need to seeet up 
