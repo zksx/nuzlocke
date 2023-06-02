@@ -63,8 +63,6 @@ To use the Youtube API you'll need threee majors things which are
     - "client_secrets.json" should be placed in the main directory
  3. Grant yourself access to the program. Naviagate back over to http://console.cloud.google.com and click on the "OAuth constent screen tab". There will be a button called "ADD USERS", make sure to add your email and double click save. You should see your email added to the "User Information" Table.
 
-# Usage <a name="usage">Usage</a>
-
 ## 1. Running the program
 
 Now the program is ready to run.
