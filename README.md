@@ -6,21 +6,19 @@ A python script that starts a chatbot for a specific youtube channell. It will w
 <details>
   <summary>🏁 Table of Contents</summary>
   <ol>
-    <li><a href="#-set-up">Set Up</a></li>
-    <li><a href="##-1-Using-Venv">Quickstart</a></li>
+    <li><a href="#-Set-Up">Set Up</a></li>
+    <ul>
+      <li><a href="##-1-Using-Venv">Using Venv</a></li>
+      <li><a href="##-2-Installing-Requirements">Installing Requirements</a></li>
+      <li><a href="##-2-Setting-up-Youtube-API">Setting up Youtube-API</a></li>
+    </ul>
     <li>
-      <a href="#-create-your-own-mlops-platform">Create your own MLOps Platform</a>
+      <a href="#-usage">Create your own MLOps Platform</a>
       <ul>
-        <li><a href="##-1-deploy-zenml">Deploy ZenML</a></li>
-        <li><a href="#-2-deploy-stack-components">Deploy Stack Components</a></li>
-        <li><a href="#-3-create-a-pipeline">Create a Pipeline</a></li>
-        <li><a href="#-4-start-the-dashboard">Start the Dashboard</a></li>
+        <li><a href="##-1-running-the-program">Deploy ZenML</a></li>
+        <li><a href="##-2-Commands-via-Youtube-chat">Commands via Youtube chat</a></li>
       </ul>
     </li>
-    <li><a href="#-roadmap">Roadmap</a></li>
-    <li><a href="#-contributing-and-community">Contributing and Community</a></li>
-    <li><a href="#-getting-help">Getting Help</a></li>
-    <li><a href="#-license">License</a></li>
   </ol>
 </details>
 
