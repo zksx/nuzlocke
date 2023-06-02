@@ -6,7 +6,7 @@ A python script that starts a chatbot for a specific youtube channell. It will w
 
 ### Using Venv
 
-I recommend starting a virtual environment. This helps keeps all the dependencies in one place and assures the program isn't using newer/older versions of dependencies found in requirements.txt
+I recommend starting a virtual environment any time running this program. This helps keeps all the dependencies in one place and assures the program isn't using newer/older versions of dependencies found in requirements.txt
 
 First install virtualenv using pip3
 ```bash
