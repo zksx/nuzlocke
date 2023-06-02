@@ -45,7 +45,7 @@ To use the Youtube API you'll need threee majors things which are
 
 ## Usage
 
-### Running the program
+### 1. Running the program
 
 Now the program is ready to run.
 
@@ -59,7 +59,7 @@ The first time the program is ran it will ask for access to a google account an 
 
 _**NOTE:**_ The account you choose will be the account replying to commands in chat. It would be worth it to set up a new google account if you want a fully dedicated bot so your personal account isn't replying to users in youtube chat.
 
-### Commands via Youtube chat
+### 2. Commands via Youtube chat
 ```python
 # assigns the pokemon snorlax to zksx
 !assign snorlax zksx
