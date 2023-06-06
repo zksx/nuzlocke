@@ -40,7 +40,7 @@ python3 -m venv nuzlocke-venv
 
 Now activate the virtual enviroment use the following command:
 ```bash
-source nuzlocke-env/bin/activate
+source nuzlocke-venv/bin/activate
 ```
 **_Note_**: this virtual enviroment needs to be activate anytime you run the script.
 
