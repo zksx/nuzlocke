@@ -14,4 +14,6 @@ release_cmd = valid_cmd("release", 1)
 
 new_run_cmd = valid_cmd("newrun", 0)
 
-VALID_CMDS = [release_cmd, assign_cmd, new_run_cmd]
+victory_cmd = valid_cmd("victory", 0)
+
+VALID_CMDS = [release_cmd, assign_cmd, new_run_cmd, victory_cmd]

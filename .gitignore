@@ -6,6 +6,8 @@
 # Oauth stuff
 client_secrets.json
 token.pickle
+*.db-journal
+*.sqbpro
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

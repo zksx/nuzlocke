@@ -15,7 +15,7 @@ import time
 import sys
 import pickle
 
-# move this channle_id somewhere else, ideally as a varible that gets passed down
+# move this channel_id somewhere else, ideally as a variable that gets passed down
 CHANNEL_ID = sys.argv[1]
 
 """
@@ -246,7 +246,7 @@ def look_for_live_event(youtube) -> str:
             # set invalid chat id to false 
             invalid_chatid = False
 
-            print("livechat ID found")
+            print("livechat ID found: " + livechat_id)
 
             return livechat_id
 
@@ -254,7 +254,7 @@ def look_for_live_event(youtube) -> str:
         except Exception as e:
             print("No id, waiting 2 mins")
             # test what e is, this can be used for error handling
-            print(e)
+            # print(e)
             # wait 5 minutes before retrying
             time.sleep(constants.ONE_MIN * 2)
 
@@ -269,14 +269,6 @@ def main() -> None:
    
     # get oauth log in creds
     credentials = get_creds()
-
-    chan_id = None
-
-    # check if the first argv has a value
-    if sys.argv[1] == None:
-
-        # get the channel the user wants to find
-        find_channel()
 
     # build youtube object
     youtube = build('youtube', 'v3', credentials=credentials)
@@ -306,8 +298,16 @@ def nuzlocke_driver(youtube) -> None:
     # while the program should be running
     while not done:
 
-        # find the live stream id
-        livechat_id = look_for_live_event(youtube)
+        # try to set the livechat_id using argv
+        try:
+
+            # set live_chat id to the argument passed in
+            livechat_id = sys.argv[2]
+
+        # otherwise search for one
+        except:
+            # find the live stream id
+            livechat_id = look_for_live_event(youtube)
 
         print("Waiting for messages...")
 
