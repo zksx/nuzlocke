@@ -827,7 +827,7 @@ class Command:
             # in the run
             cursor.execute(f"SELECT user_name, poke_name FROM users \
                            WHERE poke_name = ? \
-                           AND in_this_run='true'", (poke_name.capitalize())
+                           AND in_this_run='true'", (poke_name.capitalize()))
 
             # fill in the user_name and poke_name from the search
             self.user_name = cursor.fetchone()[0]
