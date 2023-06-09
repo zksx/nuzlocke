@@ -40,9 +40,8 @@ class Command:
         if unique_channel and unique_pokemon and real_pokemon:
 
             # insert the name and nickname into the database
-            cursor.execute(f"INSERT INTO users VALUES ('{user.user_name}', \
-                    '{user.poke_name}', 'false', 'true', '{self.author_name}', \
-                    '{user.channel_id}', '' )")
+            cursor.execute("INSERT INTO users VALUES (?, ?, 'false', 'true', ?, \
+                    ?, '' )", (user.user_name, user.poke_name, self.author_name, user.channel_id  ))
             
             success_str = f'{user.user_name} has been assigned \
             to the pokemon {user.poke_name}'
@@ -275,7 +274,7 @@ class Command:
 
             # search the database by poke_name, returning the channel_id,
             # poke_name, and user_name
-            cursor.execute(f"SELECT channel_id, poke_name, user_name \
+            cursor.execute("SELECT channel_id, poke_name, user_name \
                            FROM users \
                            WHERE poke_name = ? AND \
                            in_this_run='true'", (poke_name))
@@ -301,7 +300,7 @@ class Command:
 
             # search the database by in the in_the_run, returning channel_ids,
             # and user_names, poke_name
-            cursor.execute(f"SELECT channel_id, poke_name, user_name  \
+            cursor.execute("SELECT channel_id, poke_name, user_name  \
                 FROM users \
                 WHERE in_this_run='true' AND banned='false'")
             
@@ -338,7 +337,7 @@ class Command:
 
             # search the database returning all banned users with their 
             # user_name, and ban_id
-            cursor.execute(f"SELECT user_name, ban_id  \
+            cursor.execute("SELECT user_name, ban_id  \
             FROM users \
             WHERE banned='true'")
 
@@ -458,7 +457,7 @@ class Command:
 
 
                 # execute datebase update
-        cursor.execute(f"UPDATE users SET banned='true' WHERE poke_name = ? AND \
+        cursor.execute("UPDATE users SET banned='true' WHERE poke_name = ? AND \
                        channel_id = ?", (user.poke_name, user.channel_id ))
 
 
@@ -478,7 +477,7 @@ class Command:
 
         ban_id = response["id"]
 
-        cursor.execute(f"UPDATE users SET ban_id = ? WHERE \
+        cursor.execute("UPDATE users SET ban_id = ? WHERE \
                        channel_id = ?", (ban_id,user.channel_id ))
 
         success_str = f'The user "{user.user_name}" has been banned'
@@ -647,7 +646,7 @@ class Command:
             cursor = conn.cursor()
 
             # get user_name from database using the pokemons name
-            cursor.execute(f"SELECT user_name FROM users WHERE \
+            cursor.execute("SELECT user_name FROM users WHERE \
                            poke_name = ? \
                            AND in_this_run='true'", (self.poke_name.capitalize()))
 
@@ -769,7 +768,7 @@ class Command:
             request.execute()
 
             # update sql 
-            cursor.execute(f"UPDATE users Set banned='false' \
+            cursor.execute("UPDATE users Set banned='false' \
                            WHERE ban_id = ?", (user.ban_id))
 
             suc_str = f"{user.user_name} is unbanned!"
@@ -825,7 +824,7 @@ class Command:
 
             # search the database for the pokemon's name that are still
             # in the run
-            cursor.execute(f"SELECT user_name, poke_name FROM users \
+            cursor.execute("SELECT user_name, poke_name FROM users \
                            WHERE poke_name = ? \
                            AND in_this_run='true'", (poke_name.capitalize()))
 
