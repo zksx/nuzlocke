@@ -44,9 +44,6 @@ def commands(msg: Message, youtube, livechat_id: str) -> None:
                 # method: cmd.set_full
             cmd.set_full(msg, youtube, livechat_id)
 
-            # check for the mod/owner sending a command
-            cmd.is_valid = cmd.command_check(msg)
-
             # if command is valid
             if cmd.is_valid:
 
@@ -317,7 +314,7 @@ def nuzlocke_driver(youtube) -> None:
         while streaming:
 
             # making request request for chat messages
-            # QUOTA COST = 1
+            # QUOTA COST = 20
             request = youtube.liveChatMessages().list(
 
                 liveChatId=f"{livechat_id}",
