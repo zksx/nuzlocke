@@ -28,21 +28,13 @@ A python script that starts a chatbot for a specific youtube channell. It will w
 
 I recommend starting a virtual environment any time running this program. This helps keeps all the dependencies in one place and assures the program isn't using newer/older versions of dependencies found in requirements.txt
 
-First install virtualenv using pip3
+To start using the virtual enviroment paste the following in your terminal:
 ```bash
 pip3 install virtualenv
-```
-
-Then to create the virtual enviroment with the name 'nuzlocke-venv' use the following command:
-```bash
 python3 -m venv nuzlocke-venv
-```
-
-Now activate the virtual enviroment use the following command:
-```bash
 source nuzlocke-venv/bin/activate
 ```
-**_Note_**: this virtual enviroment needs to be activate anytime you run the script.
+**_Note_**: this virtual enviroment needs to be activate anytime you run the script. Simply rerun the last line to activate the virtual environment.
 
 ## 2. Installing Requirements
 
