@@ -1,12 +1,12 @@
 # Nuzlocke-Bot
 
 A python script that starts a chatbot for a specific youtube channel. It will wait for a stream for that youtube channel to go live and join once it finds one. It will then wait for commands from mods/owner of the stream and execute on those commands.
-
-<img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="250"/>
-<img src="https://github.com/zksx/nuzlocke/blob/main/gifs/release.gif" width="250"/>
-<img src="https://github.com/zksx/nuzlocke/blob/main/gifs/newrun.gif" width="250"/>
-<img src="https://github.com/zksx/nuzlocke/blob/main/gifs/victory.gif" width="250"/>
-
+<ol>
+  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="250"/>
+  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/release.gif" width="250"/>
+  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/newrun.gif" width="250"/>
+  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/victory.gif" width="250"/>
+</ol>
 
 
 <!-- TABLE OF CONTENTS -->
