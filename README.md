@@ -86,6 +86,9 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 !assign snorlax UCrPseYLGpNygVi34QpGNqpA
 
 # Structure of command: !assign <pokemon> <channel_id>
+```
+  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="250"/>
+
 
 # releases snorlax, thereby banning ludwig
 !release snorlax
