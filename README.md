@@ -1,6 +1,6 @@
 # Nuzlocke-Bot
 
-A python script that starts a chatbot for a specific youtube channell. It will wait for a stream for that youtube channel to go live and join once it finds one. It will then wait for commands from mods/owner of the stream and execute on those commands.
+A python script that starts a chatbot for a specific youtube channel. It will wait for a stream for that youtube channel to go live and join once it finds one. It will then wait for commands from mods/owner of the stream and execute on those commands.
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -28,32 +28,32 @@ A python script that starts a chatbot for a specific youtube channell. It will w
 
 I recommend starting a virtual environment any time running this program. This helps keeps all the dependencies in one place and assures the program isn't using newer/older versions of dependencies found in requirements.txt
 
-To start using the virtual enviroment paste the following in your terminal:
-```bash
+To start using the virtual environment paste the following in your terminal:
+```zsh
 pip3 install virtualenv
 python3 -m venv nuzlocke-venv
 source nuzlocke-venv/bin/activate
 ```
-**_Note_**: this virtual enviroment needs to be activate anytime you run the script. Simply rerun the last line to activate the virtual environment.
+**_Note_**: this virtual environment needs to be activate anytime you run the script. Simply rerun the last line to activate the virtual environment.
 
 ## 2. Installing Requirements
 
-Now that the virtual enviroment is set up we can install the dependencies from requirements.txt into nuzlocke-venv. 
-**_Note_** this virtual eniroment needs to be activate anytime you run the script.
-```bash
+Now that the virtual environment is set up we can install the dependencies from requirements.txt into nuzlocke-venv. 
+**_Note_** this virtual environment needs to be activated anytime you run the script.
+```zsh
 pip3 install -r requirements.txt
 ```
 
 ## 3. Setting up Youtube-API
-An order to make this process at easy as possible I'm going to link two youtube videos by Corey Schafer on how to enable and access the Youtube API using client secrets.
+In order to make this process as easy as possible I'm going to link two youtube videos by Corey Schafer on how to enable and access the Youtube API using client secrets.
 
-To use the Youtube API you'll need threee majors things which are
+To use the Youtube API you'll need three majors things which are to 
 1. Enable Youtube's API via googles developer console - https://youtu.be/th5_9woFJmk?t=35 (0:38 - 2:43)
-2. Create client_secrets.json for a specfic google user to use Youtube's API - https://youtu.be/vQQEaSnQ_bs?t=330 (5:30 - 10:10 )
+2. Create client_secrets.json for a specific google user to use Youtube's API - https://youtu.be/vQQEaSnQ_bs?t=330 (5:30 - 10:10 )
     - What you enter for "Application name" is what will pop up when a user is asked to login in. It doesn't really matter what you call this
     - it is import for the generated client secrets file to be named "client_secrets.json"
     - "client_secrets.json" should be placed in the main directory
- 3. Grant yourself access to the program. Naviagate back over to http://console.cloud.google.com and click on the "OAuth constent screen tab". There will be a button called "ADD USERS", make sure to add your email and double click save. You should see your email added to the "User Information" Table.
+ 3. Grant yourself access to the program. Navigate back over to http://console.cloud.google.com and click on the "OAuth consent screen tab". There will be a button called "ADD USERS", make sure to add your email and double click save. You should see your email added to the "User Information" Table.
 
 # Usage
 
@@ -79,7 +79,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 # releases snorlax, thereby banning zksx
 !release snorlax
 
-# Releases all pokemon caught in this run after the players party is wiped.
+# Releases all pokemon caught in this run after the player's party is wiped.
 !newrun
 
 # Unban all users that had been banned from being released after the player wins the game.
@@ -98,6 +98,6 @@ So what is a command defined as in this program? Is it the full message a user s
 Or is it just the first section of the full message containing "!assign" section? It gets little muddy here, and it doesn't seem like there is a full concises if a command is just the first section or all the sections together. In order to help differentiate this confusion I've decided to call the first section the "action phrase" and the full sections a command. so for instance assigning snorlax to the user zksx is a command. While just assigning in the action of the command. Here's a image to help illastate what i mean.
 
 The following command only has 1 section, called the action section. Usally 
-```bash
+```zsh
 !victory
 ```
