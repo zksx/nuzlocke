@@ -17,10 +17,10 @@ A python script that starts a chatbot for a specific youtube channel. It will wa
       <ul>
         <li><a href="#1-running-the-program">Running the Program</a></li>
         <li><a href="#2-commands-via-youtube-chat">Commands via Youtube chat</a></li>
-        <li><a href="#3-roadmap">Roadmap</a></li>
-        <li><a href="#4-help">Help</a></li>
       </ul>
     </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#help">Help</a></li>
   </ol>
 </details>
 
@@ -88,11 +88,11 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 !victory
 ```
 
-# 3. Roadmap 
+# Roadmap 
 
 As of right now the next plan is to intergrate a website that is able to read/write to the database. Only mods of the stream or the stream owner themseleves should be able to access the website.
 
-# 4. Help
+# Help
 
 ## 1. Commands defined
 
