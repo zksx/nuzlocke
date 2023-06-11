@@ -77,9 +77,11 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 ```python
 # assigns the pokemon snorlax to ludwig
 !assign snorlax UCrPseYLGpNygVi34QpGNqpA
+!assign <pokemon> <channel_id>
 
 # releases snorlax, thereby banning ludwig
 !release snorlax
+!release <pokemon>
 
 # Releases all pokemon caught in this run after the player's party is wiped.
 !newrun
