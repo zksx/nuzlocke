@@ -64,7 +64,7 @@ Now the program is ready to run.
 In order to start up the program run the yt.py script with a youtube channels id. If your not sure how to find a channels id follow this link https://support.google.com/youtube/answer/3250431?hl=en. It's also possible to find other channels id's by using Youtube's API.
 
 ```zsh
-python3 yt.py <CHANNEL_ID>
+python3 nuzlocke.py <CHANNEL_ID>
 ```
  
 The first time the program is ran it will ask for access to a google account an order to carry out commands. Google will warn the app isn't verified, click continue.
