@@ -18,9 +18,7 @@ A python script that starts a chatbot for a specific youtube channel. It will wa
         <li><a href="#1-running-the-program">Running the Program</a></li>
         <li><a href="#2-commands-via-youtube-chat">Commands via Youtube chat</a></li>
         <li><a href="#3-roadmap">Roadmap</a></li>
-        <li><a href="#3-help">Help</a></li>
-
-
+        <li><a href="#4-help">Help</a></li>
       </ul>
     </li>
   </ol>
