@@ -74,15 +74,18 @@ The first time the program is ran it will ask for access to a google account an 
 
 _**NOTE:**_ The account you choose will be the account replying to commands in chat. It would be worth it to set up a new google account if you want a fully dedicated bot so your personal account isn't replying to users in youtube chat.
 
-## 2. Commands via Youtube chat
-```python
-# assigns the pokemon snorlax to ludwig
-!assign snorlax UCrPseYLGpNygVi34QpGNqpA
+<p float="left">  ## 2. Commands via Youtube chat
+  ```python
+  # assigns the pokemon snorlax to ludwig
+  !assign snorlax UCrPseYLGpNygVi34QpGNqpA
 
-# Structure of command: !assign <pokemon> <channel_id>
-```
-  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="250"/>
+  # Structure of command: !assign <pokemon> <channel_id>
+  ```
+    <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="250"/> 
+  </p>
 
+
+  
 ```python
 # releases snorlax, thereby banning ludwig
 !release snorlax
