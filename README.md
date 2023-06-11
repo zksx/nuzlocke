@@ -3,7 +3,7 @@
 A python script that starts a chatbot for a specific youtube channel. It will wait for a stream for that youtube channel to go live and join once it finds one. It will then wait for commands from mods/owner of the stream and execute on those commands.
 
 ![](https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif)
-<img src="(https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif)" width="250" height="250"/>
+<img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="250" height="250"/>
 
 <!-- TABLE OF CONTENTS -->
 <details>
