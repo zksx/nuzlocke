@@ -75,10 +75,10 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 
 ## 2. Commands via Youtube chat
 ```python
-# assigns the pokemon snorlax to zksx
-!assign snorlax zksx
+# assigns the pokemon snorlax to ludwig
+!assign snorlax UCrPseYLGpNygVi34QpGNqpA
 
-# releases snorlax, thereby banning zksx
+# releases snorlax, thereby banning ludwig
 !release snorlax
 
 # Releases all pokemon caught in this run after the player's party is wiped.
@@ -98,7 +98,7 @@ As of right now the next plan is to intergrate a website that is able to read/wr
 
 So what is a command defined as in this program? Is it the full message a user sends into the chat such as shown below?
 ```zsh 
-!assign snorlax zksx
+!assign snorlax UCrPseYLGpNygVi34QpGNqpA
 ```
 
 Or is it just the first section of the full message containing "!assign" section? It gets little muddy here, and it doesn't seem like there is a full concises if a command is just the first section or all the sections together. In order to help differentiate this confusion I've decided to call the first section the "action phrase" and the full sections a command. so for instance assigning snorlax to the user zksx is a command. While just assigning in the action of the command. Here's an image to help illustrate what I mean.
