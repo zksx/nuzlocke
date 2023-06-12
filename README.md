@@ -78,7 +78,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 
 
 ### 1. Assigning
-```python
+```zsh
 # assigns the pokemon snorlax to slimewiree
 !assign snorlax UC1nqeQ8n8mX9FnlTUe-h3jA
 
