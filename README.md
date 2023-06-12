@@ -2,7 +2,6 @@
 
 A python script that starts a chatbot for a specific youtube channel. It will wait for a stream for that youtube channel to go live and join once it finds one. It will then wait for commands from mods/owner of the stream and execute on those commands.
 
-![](https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif)
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -61,11 +60,11 @@ To use the Youtube API you'll need three majors things which are to
 
 # Usage
 
-## 1. Running the program
+## 1. Starting the program
 
 Now the program is ready to run.
 
-In order to start up the program run the yt.py script with a youtube channels id. If your not sure how to find a channels id follow this link https://support.google.com/youtube/answer/3250431?hl=en. It's also possible to find other channels id's by using Youtube's API.
+In order to start up the program run the nuzlocke.py script with a youtube channel's id. If you're not sure how to find a channel's id follow this link https://support.google.com/youtube/answer/3250431?hl=en. It's also possible to find other channels id's by using Youtube's API or by using third party sites. 
 
 ```zsh
 python3 nuzlocke.py <CHANNEL_ID>
@@ -75,24 +74,47 @@ The first time the program is ran it will ask for access to a google account an 
 
 _**NOTE:**_ The account you choose will be the account replying to commands in chat. It would be worth it to set up a new google account if you want a fully dedicated bot so your personal account isn't replying to users in youtube chat.
 
-## 2. Commands via Youtube chat
-```python
-# assigns the pokemon snorlax to ludwig
-!assign snorlax UCrPseYLGpNygVi34QpGNqpA
+## 1. Commands via youtube live chat
+
+
+### 1. Assigning
+```zsh
+# assigns the pokemon snorlax to slimewiree
+!assign snorlax UC1nqeQ8n8mX9FnlTUe-h3jA
 
 # Structure of command: !assign <pokemon> <channel_id>
+```
+ <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="300"/> 
+ 
+  - - - -
+  
+ ### 2. Releasing
 
-# releases snorlax, thereby banning ludwig
+```zsh
+# releases snorlax, thereby banning slimewire
 !release snorlax
 
 # Structure of command: !release <pokemon>
+```
+  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/release.gif" width="300"/>
+  
+  - - - -
 
+ ### 3. New run
+```bash
 # Releases all pokemon caught in this run after the player's party is wiped.
 !newrun
+```
+  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/newrun.gif" width="300"/>
+  
+  - - - -
 
+### 4. Victory
+```zsh
 # Unban all users that had been banned from being released after the player wins the game.
 !victory
 ```
+  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/victory.gif" width="300"/>
 
 # Roadmap 
 
@@ -107,7 +129,7 @@ So what is a command defined as in this program? Is it the full message a user s
 !assign snorlax UCrPseYLGpNygVi34QpGNqpA
 ```
 
-Or is it just the first section of the full message containing "!assign" section? It gets little muddy here, and it doesn't seem like there is a full concises if a command is just the first section or all the sections together. In order to help differentiate this confusion I've decided to call the first section the "action phrase" and the full sections a command. so for instance assigning snorlax to the user zksx is a command. While just assigning in the action of the command. Here's an image to help illustrate what I mean.
+Or is it just the first section of the full message containing "!assign" section? It gets little muddy here, and it doesn't seem like there is a full concises if a command is just the first section or all the sections together. In order to help differentiate this confusion I've decided to call the first section the "action phrase" and the full sections a command. so for instance the command shown above, assigning snorlax a channel id, is a command. While just assigning is the action of the command. Here's an image to help illustrate what I mean.
 
 The following command "!victory" only has 1 section, called the action section. 
 ```zsh
