@@ -90,7 +90,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
   
  ### 2. Releasing
 
-```python
+```zsh
 # releases snorlax, thereby banning slimewire
 !release snorlax
 
@@ -101,7 +101,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
   - - - -
 
  ### 3. New run
-```python
+```bash
 # Releases all pokemon caught in this run after the player's party is wiped.
 !newrun
 ```
@@ -110,7 +110,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
   - - - -
 
 ### 4. Victory
-```python
+```zsh
 # Unban all users that had been banned from being released after the player wins the game.
 !victory
 ```
