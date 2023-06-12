@@ -64,7 +64,7 @@ To use the Youtube API you'll need three majors things which are to
 
 Now the program is ready to run.
 
-In order to start up the program run the yt.py script with a youtube channels id. If your not sure how to find a channels id follow this link https://support.google.com/youtube/answer/3250431?hl=en. It's also possible to find other channels id's by using Youtube's API.
+In order to start up the program run the nuzlocke.py script with a youtube channel's id. If you're not sure how to find a channel's id follow this link https://support.google.com/youtube/answer/3250431?hl=en. It's also possible to find other channels id's by using Youtube's API or by using third party sites. 
 
 ```zsh
 python3 nuzlocke.py <CHANNEL_ID>
