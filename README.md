@@ -98,7 +98,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 ```
   <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/release.gif" width="300"/>
   
-    - - - -
+  - - - -
 
  ### 3. New run
 ```python
@@ -107,7 +107,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 ```
   <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/newrun.gif" width="300"/>
   
-    - - - -
+  - - - -
 
 ### 4. Victory
 ```python
