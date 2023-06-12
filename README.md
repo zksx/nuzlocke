@@ -129,7 +129,7 @@ So what is a command defined as in this program? Is it the full message a user s
 !assign snorlax UCrPseYLGpNygVi34QpGNqpA
 ```
 
-Or is it just the first section of the full message containing "!assign" section? It gets little muddy here, and it doesn't seem like there is a full concises if a command is just the first section or all the sections together. In order to help differentiate this confusion I've decided to call the first section the "action phrase" and the full sections a command. so for instance assigning snorlax to the user zksx is a command. While just assigning in the action of the command. Here's an image to help illustrate what I mean.
+Or is it just the first section of the full message containing "!assign" section? It gets little muddy here, and it doesn't seem like there is a full concises if a command is just the first section or all the sections together. In order to help differentiate this confusion I've decided to call the first section the "action phrase" and the full sections a command. so for instance the command shown above, assigning snorlax a channel id, is a command. While just assigning is the action of the command. Here's an image to help illustrate what I mean.
 
 The following command "!victory" only has 1 section, called the action section. 
 ```zsh
