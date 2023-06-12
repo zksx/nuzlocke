@@ -16,20 +16,20 @@ from command import Command
 import constants
 
 
-# move this channel_id somewhere else, 
+# move this channel_id somewhere else,
 # ideally as a variable that gets passed down
 CHANNEL_ID = sys.argv[1]
 
-""" 
-Checks msg to seee if it is a valid cmd by owner/mod
 
-    Args: 
-        youtube - socket object
-        livechat_id - string of live chat id
-
-    Returns: livechatId
-"""
 def command_check(msg: Message, youtube, livechat_id: str) -> None:
+    """Checks msg to seee if it is a valid cmd by owner/mod
+
+        Args:
+            youtube - socket object
+            livechat_id - string of live chat id
+
+        Returns: livechatId
+    """
 
     # check if the message is from a user who can do commands
     has_control = get_permissions(msg)
@@ -44,14 +44,12 @@ def command_check(msg: Message, youtube, livechat_id: str) -> None:
             cmd = Command()
 
             # fill command with data
-                # method: cmd.load_cmd
             cmd.load_cmd(msg, youtube, livechat_id)
 
             # if command is valid
             if cmd.is_valid:
 
                 # execute command
-                    # method: cmd.execute()
                 cmd.execute()
 
             # otherwise command isn't valid
@@ -64,12 +62,10 @@ def command_check(msg: Message, youtube, livechat_id: str) -> None:
 
 
 def get_creds():
-    """ 
-    Gets the creds to login to google account to be used the chat bot.
+    """ Gets the creds to login to google account to be used the chat bot.
 
-        Params:  N/A
-        
-        Returns: credintials that contain the client_id and client_secret
+        Returns:
+            Creds
     """
 
     credentials = None
@@ -78,12 +74,12 @@ def get_creds():
     if os.path.exists("token.pickle"):
         print("loading Credintials from file...")
 
-        # store the token.pickl into token. "rb" is used here since 
+        # store the token.pickl into token. "rb" is used here since
         # token.pickle is written in binary
         with open("token.pickle", "rb") as token:
             credentials = pickle.load(token)
 
-    # If there are no valid credentials available, 
+    # If there are no valid credentials available,
     # then either refresh the token or log in.
     if not credentials or not credentials.valid:
         if credentials and credentials.expired and credentials.refresh_token:
@@ -99,7 +95,8 @@ def get_creds():
             )
 
             flow.run_local_server(port=8080, prompt='consent',
-                                authorization_prompt_message='')
+                                  authorization_prompt_message='')
+
             credentials = flow.credentials
 
             # Save the credentials for the next run
@@ -109,16 +106,17 @@ def get_creds():
 
     return credentials
 
-"""
-Sends a request with a video id in order to find the live chat id of said video
 
-    Args: 
-        youtube - socket object
-        video_id - id of the video we're attempting to get the chat live id for
-
-    Returns: live chat id string
-"""
 def get_live_chat_id(youtube, video_id: str) -> str:
+    """Gets video id in order to find the live chat id of said video.
+
+        Args:
+            youtube - socket object
+            video_id - id of the video we're trying to get the chat live id for
+
+        Returns:
+            live_chat_id
+    """
 
     # use channels id to search for live event types.
     # QUOTA COST = 1
@@ -128,33 +126,38 @@ def get_live_chat_id(youtube, video_id: str) -> str:
         maxResults=1
     )
 
-
     # sending request and getting response
     response = request.execute()
 
+    items = response["items"]
+
     # save livechat_id
-    livechat_id = response["items"][0]
-    ["liveStreamingDetails"]["activeLiveChatId"]
+    live_chat_id = items[0]["liveStreamingDetails"]["activeLiveChatId"]
 
     # return video id
-    return livechat_id
+    return live_chat_id
+
 
 def get_offline_at(response: dict):
+    """ Returns offlineAt from youtube response"""
 
     return response["offlineAt"]
 
+
 def get_next_pt(response: dict) -> int:
-    
+    """ Returns nextPageToken from youtube response"""
     return response["nextPageToken"]
 
-"""
-Checks to see if the message sent by the user has permissions
 
-    Args:  youtube object
-
-    Returns: if the user has peermissions or not
-"""
 def get_permissions(msg) -> bool:
+    """Checks to see if the message sent by the user has permissions
+
+        Args:
+            msg - youtube chat msg
+
+        Returns:
+            bool - if the user
+    """
 
     if msg.is_mod or msg.is_owner:
         return True
@@ -163,43 +166,40 @@ def get_permissions(msg) -> bool:
 
 
 def get_stream_status(response: dict) -> bool:
-    """
-    Checks if the stream is still live or not
+    """Checks if the stream is still live or not
 
-        Params:  
+        Args:
             response - response object from Youtube API
-            
+
         Returns: if stream is live or not
     """
-    # TODO this seems BAD. The program should find if the reponse contains 
-    # "offlineAt" a different way that dones't depend on error handling
+    # TODO this seems BAD. The program should find if the reponse contains
+    # "offlineAt" a different way that doesn't depend on error handling
 
     # try to get the offlineAt property
     try:
         get_offline_at(response)
         return False
 
-    # if an error occurs that means there is not offlineAt property 
+    # if an error occurs that means there is not offlineAt property
     # and the stream is still live
     except:
         return True
-    
+
 
 def get_vid_id(youtube) -> str:
-    """ 
-    Attempts to find video id of  a live video of said youtube channel. 
+    """Attempts to find video id of  a live video of said youtube channel.
 
-        Params:  
+        Args:
             youtube
 
-        Returns: 
+        Returns:
             video id of live stream
     """
 
     # use channels id to search for live event types.
     # QUOTA COST = 100
     input("You're about to search, press enter to continue: ")
-
 
     request = youtube.search().list(
         part="snippet",
@@ -217,27 +217,29 @@ def get_vid_id(youtube) -> str:
 
     # return video id
     return vid_id
-    
+
+
 def get_wait_time(response: dict) -> int:
+    "Finds the pollingIntervalMillis"
 
     return response["pollingIntervalMillis"]
 
-def look_for_live_event(youtube) -> str:
-    """
-    Continous looks for a live event until one is found
 
-        Args: 
+def look_for_live_event(youtube) -> str:
+    """Continous looks for a live event until one is found
+
+        Args:
             youtube - sokcet object
-            
-        Returns: 
+
+        Returns:
             livechatId
     """
 
     # variables
-    invalid_chatid = True
+    invalid_chat_id = True
 
     # look for live chat id
-    while invalid_chatid:
+    while invalid_chat_id:
 
         # attempt to find valid livechat id
         try:
@@ -245,14 +247,14 @@ def look_for_live_event(youtube) -> str:
             vid_id = get_vid_id(youtube)
 
             # use video id to find livechatID
-            livechat_id = get_live_chat_id(youtube, vid_id)
+            live_chat_id = get_live_chat_id(youtube, vid_id)
 
-            # set invalid chat id to false 
-            invalid_chatid = False
+            # set invalid chat id to false
+            invalid_chat_id = False
 
-            print("livechat ID found: " + livechat_id)
+            print("live chat ID found: " + live_chat_id)
 
-            return livechat_id
+            return live_chat_id
 
         # otherwise livechat id was not found
         except Exception as e:
@@ -262,10 +264,11 @@ def look_for_live_event(youtube) -> str:
             # wait 5 minutes before retrying
             time.sleep(constants.FIVE_MINS)
 
-def main() -> None:
-    """ Gets login creds, builds youtube socket, and starts nuzlocke loop
 
-        Params: 
+def main() -> None:
+    """Gets login creds, builds youtube socket, and starts nuzlocke loop
+
+        Args:
             youtube - socket object
 
         Returns:
@@ -278,19 +281,22 @@ def main() -> None:
     # build youtube object
     youtube = build("youtube", "v3", credentials=credentials)
 
+    print(look_for_live_event.__doc__)
+
     # make msg object
     nuzlocke_driver(youtube)
 
     # close connection
     youtube.close()
 
-def nuzlocke_driver(youtube) -> None:
-    """ Handles the main loop for checking youtube msgs
 
-        Args:  
+def nuzlocke_driver(youtube) -> None:
+    """Handles the main loop for checking youtube msgs
+
+        Args:
             youtube - socket object
 
-        Returns: 
+        Returns:
             None
     """
 
@@ -336,37 +342,38 @@ def nuzlocke_driver(youtube) -> None:
             # get offline response
             streaming = get_stream_status(response)
 
-            # save next page token 
+            # save next page token
             # (used to gather chat messages from last gathered message)
             next_page_token = get_next_pt(response)
 
-            # save pollingIntervalMillis 
+            # save pollingIntervalMillis
             # ( used to wait until captureing next page)
             poll_int_mils = get_wait_time(response)
 
             wait_time = poll_int_mils / constants.MILL_CONVER
 
             parse_live_chat(response, youtube, livechat_id)
-            
+
             # wait the number poll interval time
             time.sleep(wait_time)
 
-            # if the stream is dead wait one minute, this is to avoid a 
-            # spam loop of finding the livechatID but the streeam is 
+            # if the stream is dead wait one minute, this is to avoid a
+            # spam loop of finding the livechatID but the streeam is
             # offline. This Quota cost is insane
             if not streaming:
                 print("Stream is offline, waiting 5 mins")
                 time.sleep(constants.FIVE_MINS)
 
-""" makes message object prints messages from authors, and calls the cmd func
 
-    Args:  
-        response - response object from Youtube API
-
-    Returns: 
-        None
-"""
 def parse_live_chat(response: dict, youtube, livechat_id: str) -> None:
+    """Makes message object prints messages from authors, calls the cmd func
+
+        Args:
+            response - response object from Youtube API
+
+        Returns:
+            None
+    """
 
     items = response["items"]
 
@@ -382,7 +389,7 @@ def parse_live_chat(response: dict, youtube, livechat_id: str) -> None:
         # print the display message
         print(msg.author_name + ": " + msg.text)
 
-        # check if the 
+        # check if the msg is a command
         command_check(msg, youtube, livechat_id)
 
 

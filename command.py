@@ -7,7 +7,7 @@ from message import Message
 class Command:
     """ Command class 
 
-    Keyword arguments:
+    Args:
         self -- NuzlockeUser class
         user_name -- display name associted with the user
         poke_name -- the pokemon that is asscoiteed with the user
@@ -35,7 +35,7 @@ class Command:
     def assign(self, user, cursor: sqlite3.Cursor) -> None:
         """Inserts user with asscoiated poke name in database
 
-        Keyword arguments:
+        Args:
             self - a command class object
             cursor - cursor for database
             user - the user to have the cmd exectued on
@@ -84,10 +84,10 @@ class Command:
             self.send_err(error_str)
 
     def execute(cmd) -> None:
-        """ Executes command, mainly sql commands for the database
+        """Executes command, mainly sql commands for the database
 
-        Keyword arguments: 
-            cmd -- a command class object
+        Args: 
+            cmd - a command class object
         """
 
         # creates a database first time it is ran
@@ -119,18 +119,20 @@ class Command:
         # print he data base
         cmd.show_data(cursor)
 
-    """checks if the command is has a action that has a channel_id 
-        related to it. If it does it returns the channel id.
-
-    Keyword arguments: 
-        self - a command class object
-        action - the command that will be executed
-        cmd_text_arr - The cmd the authored entered via the youtube chat but 
-                       in array form.
-
-    Returns: channel_id, or empty strings
-    """
     def get_channel_id(self, action: str, cmd_text_arr: list[str]):
+        """Checks if the command is has a action that has a channel_id 
+            related to it. If it does it returns the channel id.
+
+        Args:
+            self - a command class object
+            action - the command that will be executed
+            cmd_text_arr - The cmd the authored entered via the youtube chat but 
+                        in array form.
+
+        Returns:
+            channel_id, or empty strings
+        """
+
         # get length of the command array
         cmd_len = len(cmd_text_arr)
 
@@ -151,7 +153,7 @@ class Command:
         """Gets the poke_name from the command the user entered via youtube
                 if there is a poke_name.
 
-        Keyword arguments: 
+        Args:
             self - a command class object
             action - the command that will be executed
             cmd_text_arr - The cmd the authored entered via the youtube chat
@@ -205,7 +207,7 @@ class Command:
                 one user in the case of release/assign or many users 
                 such as with victory and newrun.
 
-        Keyword agruments: 
+        Args:
             self - a command class object
             action - the command that will be executed
             poke_name - pokemon name associated with the user
@@ -349,16 +351,16 @@ class Command:
 
             return users_arr
 
-    """sets all pokemon in the run to the banned status. 
-            Also bans all the users in youtube chat.
 
-    Keyword agruments: 
-            self - a command class object
-            users - 
-            cursor - 
-    """
     def new_run(self, users, cursor: sqlite3.Cursor) -> None:
+        """Sets all pokemon in the run to the banned status. 
+                Also bans all the users in youtube chat.
 
+        Args: 
+                self - a command class object
+                users - 
+                cursor - 
+        """
         # for user in users
         for user in users:
 
@@ -383,10 +385,10 @@ class Command:
 
 
     def real_pokemon(self, user_poke_name) -> bool:
-        """ Returns if the pokemon is a real pokemon
+        """Returns if the pokemon is a real pokemon
 
             Args: 
-                self(Command): S command class object
+                self(Command): command class object
 
             Returns:
                 bool: Determing if the pokemon is real or not
@@ -439,7 +441,7 @@ class Command:
         """To be used when a pokemon is released in the wild. 
             This bans the users assigned to that pokemon
 
-        Params: 
+        Args: 
             self - a command class object
             cursor - belongs to the nuzlocke database
         """
@@ -496,9 +498,9 @@ class Command:
             self.send_err(err_str)
 
     def send_err(self, err_str: str) -> None:
-        """ Sends an error message via chat to the author of the command
+        """Sends an error message via chat to the author of the command
 
-        Params: 
+        Args:
             self - a command class object
             err_str - a preset error message
         """
@@ -521,7 +523,7 @@ class Command:
     def send_suc(self) -> None:
         """ Sends an success message via chat to the author of the command
 
-            Args: 
+            Args:
                 self - a command class object
                 err_str - a preset success message
         """
@@ -546,7 +548,7 @@ class Command:
     def set_cmd(self, msg_text_arr: list[str]) -> None:
         """ Sets all the cmd attributes from the msg
 
-            Args: 
+            Args:
                 msg_text_arr - string array of text
         """
         text_arr_len = len(msg_text_arr)
@@ -630,15 +632,15 @@ class Command:
 
 
     def set_live_chat_id(self, live_chat_id: str) -> None:
-        """ Sets the set_live_chat_id to the cmd object """
+        """Sets the set_live_chat_id to the cmd object """
 
         self.live_chat_id = live_chat_id
 
 
     def set_user_name(self, channel_id: str, youtube) -> None:
-        """ Will set the user_name to the cmd, according the the action 
-            statement. """
-         
+        """Sets the user_name according the the action statement. """
+        
+        # check if the action is assign
         if self.action == "!assign":
 
             # use channel id to find display name
@@ -671,7 +673,7 @@ class Command:
 
             self.user_name = cursor.fetchone()[0]
 
-        #otherwise assume it's newrun
+        #otherwise assume it's newrun/victory
         else:
             self.user_name = ""
 
@@ -681,12 +683,7 @@ class Command:
         self.youtube = youtube
 
     def show_data(self, cursor: sqlite3.Cursor) -> None:
-        """ Shows all rows in the database
-
-        Params: 
-            self - a command class object
-            cursor - cursor for database
-        """
+        """Shows all rows in the database """
         cursor.execute("SELECT rowid, * FROM users")
 
         items = cursor.fetchall()
@@ -698,9 +695,11 @@ class Command:
     def standarize_msg(self, msg_text: str) -> list[str]:
         """ Executes command, mainly sql commands for the database
 
-        Params: 
+        Args:
             msg_text - text from the msg class
-        Returns: An array with the msg split into strings 
+
+        Returns:
+            An array with the msg split into strings 
         """
 
         # Strip the msg_text of white space
@@ -716,11 +715,12 @@ class Command:
                         cursor: sqlite3.Cursor) -> bool:
         """Checks if the pokemon has already been used in this run
 
-        Params: 
+        Args:
             self - Command class
             cursor - for the nuzlocke database
 
-        Returns: An array with the msg split into strings
+        Returns:
+            An array with the msg split into strings
         """
         
         # get all the pokemon that are currently in the run
@@ -745,13 +745,14 @@ class Command:
         # return true
         return True
 
-    """
-    Name: useable_channel
-    Desc: checks if the pokemon has already been used in this run
-    Params: 
-             self - Command class
-             cursor - for the nuzlocke database
-    Returns: An array with the msg split into strings
+    """Checks if the pokemon has already been used in this run
+
+        Args:
+            self - Command class
+            cursor - for the nuzlocke database
+
+        Returns:
+            An array with the msg split into strings
     """
     def useable_channel(self, user_channel_id, 
                         cursor: sqlite3.Cursor) -> bool:
@@ -774,14 +775,13 @@ class Command:
         return True
     
     def valid_command_check(self, msg: Message) -> bool:
-        """ 
-        Checks the command is a valid command 
+        """Checks the command is a valid command 
 
-        Params: 
-                self - a command class object
-                msg - message from youtube chat
+        Args:
+            self - a command class object
+            msg - message from youtube chat
                 
-        Returns: N/A
+        Returns: None
         """
 
         temp_text = msg.text
@@ -818,10 +818,9 @@ class Command:
     
 
     def victory(self, users, cursor: sqlite3.Cursor) -> None:
-        """ 
-        Unbans all users in chat and in the database
+        """Unbans all users in chat and in the database
 
-            Args: 
+            Args:
                 self - Command class
                 cursor - for the nuzlocke database
 
@@ -848,10 +847,9 @@ class Command:
 
 
     class NuzlockeUser:
-        """ 
-        The nuzlocke user that is asscoited with the current command
+        """ The nuzlocke user that is asscoited with the current command
 
-            Args: 
+            Args:
                 self - NuzlockeUser class
                 user_name - display name associted with the user
                 poke_name - the pokemon that is asscoiteed with the user
@@ -867,14 +865,13 @@ class Command:
             self.ban_id = ban_id
 
         def find_by_poke_name(self, poke_name):
-            """
-            Finds the user in the table by asscoiated pokemon. Sets info.
+            """ Finds the user in the table by asscoiated pokemon/sets info.
 
-                Args: 
+                Args:
                     self - NuzlockeUser class
                     poke_name - the pokemon that is associated with the user
                     
-                Returns: N/A
+                Returns: None
             """
 
             # make a connection to the nuzlocke database
