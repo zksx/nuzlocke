@@ -60,7 +60,7 @@ To use the Youtube API you'll need three majors things which are to
 
 # Usage
 
-## 1. Running the program
+## 1. Starting the program
 
 Now the program is ready to run.
 
@@ -74,8 +74,10 @@ The first time the program is ran it will ask for access to a google account an 
 
 _**NOTE:**_ The account you choose will be the account replying to commands in chat. It would be worth it to set up a new google account if you want a fully dedicated bot so your personal account isn't replying to users in youtube chat.
 
+## 1. Commands via youtube live chat
 
-### Assigning
+
+### 1. Assigning
 ```python
 # assigns the pokemon snorlax to ludwig
 !assign snorlax UCrPseYLGpNygVi34QpGNqpA
@@ -84,7 +86,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 ```
  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="300"/> 
   
- ### Releasing
+ ### 2. Releasing
 
 ```python
 # releases snorlax, thereby banning ludwig
@@ -94,14 +96,14 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 ```
   <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/release.gif" width="300"/>
 
- ### New run
+ ### 3. New run
 ```python
 # Releases all pokemon caught in this run after the player's party is wiped.
 !newrun
 ```
   <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/newrun.gif" width="300"/>
 
-### Victory
+### 4. Victory
 ```python
 # Unban all users that had been banned from being released after the player wins the game.
 !victory
