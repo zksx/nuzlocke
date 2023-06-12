@@ -79,8 +79,8 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 
 ### 1. Assigning
 ```python
-# assigns the pokemon snorlax to ludwig
-!assign snorlax UCrPseYLGpNygVi34QpGNqpA
+# assigns the pokemon snorlax to slimewiree
+!assign snorlax UC1nqeQ8n8mX9FnlTUe-h3jA
 
 # Structure of command: !assign <pokemon> <channel_id>
 ```
@@ -91,7 +91,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
  ### 2. Releasing
 
 ```python
-# releases snorlax, thereby banning ludwig
+# releases snorlax, thereby banning slimewire
 !release snorlax
 
 # Structure of command: !release <pokemon>
