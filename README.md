@@ -85,6 +85,8 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 # Structure of command: !assign <pokemon> <channel_id>
 ```
  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="300"/> 
+ 
+  - - - -
   
  ### 2. Releasing
 
@@ -95,6 +97,8 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 # Structure of command: !release <pokemon>
 ```
   <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/release.gif" width="300"/>
+  
+    - - - -
 
  ### 3. New run
 ```python
@@ -102,6 +106,8 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 !newrun
 ```
   <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/newrun.gif" width="300"/>
+  
+    - - - -
 
 ### 4. Victory
 ```python
