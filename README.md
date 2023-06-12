@@ -82,7 +82,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 # Structure of command: !assign <pokemon> <channel_id>
 ```
  <img src="https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif" width="250"/> 
- [picture alt]!(https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif/200x150 "Title is optional")
+ ![picture alt](https://github.com/zksx/nuzlocke/blob/main/gifs/assign.gif/200x150 "Title is optional")
 
   
 ```python
