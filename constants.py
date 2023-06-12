@@ -1,5 +1,4 @@
-from typing import Final
 
-MILL_CONVER: Final[int] = 1000
-FIVE_MINS:  Final[int] = 300
-ONE_MIN:  Final[int] = 60
+MILL_CONVER = 1000
+FIVE_MINS = 300
+ONE_MIN = 60

@@ -1,6 +1,7 @@
 
 class Message:
-    def __init__(self="", author_name="", text="", is_mod=False, is_owner=False) -> None:
+    def __init__(self="", author_name="", text="", 
+                 is_mod=False, is_owner=False) -> None:
         self.author_name = author_name
         self.text = text
         self.is_mod = is_mod
@@ -23,7 +24,7 @@ class Message:
     def set_author_name(self, item) -> None:
         self.author_name = item["authorDetails"]["displayName"]
 
-    def set_full(self, item) -> None:
+    def load_msg(self, item) -> None:
         self.set_text(item)
         self.set_author_name(item)
         self.set_is_mod(item)
