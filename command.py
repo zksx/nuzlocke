@@ -1,12 +1,13 @@
-import sqlite3
-from valid_commands import VALID_CMDS
-from message import Message
 from typing import *
 
+from valid_commands import VALID_CMDS
+from message import Message
+
+import sqlite3
 
 
 class Command:
-    """ Command class 
+    """ Command class
 
     Args:
         self -- NuzlockeUser class
@@ -16,22 +17,20 @@ class Command:
 
     Returns: N/A
     """
-    def __init__(self, 
-                 action: str = "", 
-                 author_name: str = "", 
-                 is_valid: bool = False, 
-                 youtube = None, 
-                 live_chat_id: str = "", 
+    def __init__(self,
+                 action: str = "",
+                 author_name: str = "",
+                 is_valid: bool = False,
+                 youtube=None,
+                 live_chat_id: str = "",
                  users: list = []):
-        
+
         self.action = action
         self.author_name = author_name
         self.is_valid = is_valid
         self.youtube = youtube
         self.live_chat_id = live_chat_id
         self.users = users
-
-
 
     def assign(self, user, cursor: sqlite3.Cursor) -> None:
         """Inserts user with asscoiated poke name in database
@@ -53,10 +52,10 @@ class Command:
 
             # insert the name and nickname into the database
             cursor.execute("INSERT INTO users \
-                            VALUES (?, ?, 'false', 'true', ?, ?, '' )", \
-                            (user.user_name, user.poke_name, 
+                            VALUES (?, ?, 'false', 'true', ?, ?, '' )",
+                           (user.user_name, user.poke_name,
                             self.author_name, user.channel_id))
-            
+
             # send success reply
             self.send_suc()
 
@@ -66,17 +65,16 @@ class Command:
             error_str = f"This channel id has already been used"
 
             # call error
-            self.send_err(error_str);
-        
+            self.send_err(error_str)
+
         # otherwise check that the pokmon is unique
         elif not unique_pokemon:
 
             error_str = f"This pokemon has already been used in this run"
 
             # call error
-            self.send_err(error_str);
+            self.send_err(error_str)
 
-            
         # otherwise the giveen pokemon name was not an actual pokemon
         else:
 
@@ -87,7 +85,7 @@ class Command:
     def execute(cmd) -> None:
         """Executes command, mainly sql commands for the database
 
-        Args: 
+        Args:
             cmd - a command class object
         """
 
@@ -101,7 +99,7 @@ class Command:
         match cmd.action:
             case "!assign":
                 cmd.assign(cmd.users[0], cursor)
-            
+
             case "!release":
                 cmd.release(cmd.users[0], cursor)
 
@@ -116,19 +114,19 @@ class Command:
 
         # commit the commands
         conn.commit()
-        
+
         # print he data base
         cmd.show_data(cursor)
 
     def get_channel_id(self, action: str, cmd_text_arr: list[str]):
-        """Checks if the command is has a action that has a channel_id 
+        """Checks if the command is has a action that has a channel_id
             related to it. If it does it returns the channel id.
 
         Args:
             self - a command class object
             action - the command that will be executed
-            cmd_text_arr - The cmd the authored entered via the youtube chat but 
-                        in array form.
+            cmd_text_arr - The cmd the authored entered via the youtube chat
+                            but in array form.
 
         Returns:
             channel_id, or empty strings
@@ -140,15 +138,14 @@ class Command:
         # check if the command is assign
         if action == "!assign":
 
-            # return the last string from the array which is the 
+            # return the last string from the array which is the
             # channel id
             return cmd_text_arr[cmd_len - 1]
-        
-        # otherwise the command doesn't have an associted channel_id 
+
+        # otherwise the command doesn't have an associted channel_id
         # so return empty string
 
         return ""
-
 
     def get_poke_name(self, action: str, cmd_text_arr: list[str]):
         """Gets the poke_name from the command the user entered via youtube
@@ -159,7 +156,7 @@ class Command:
             action - the command that will be executed
             cmd_text_arr - The cmd the authored entered via the youtube chat
                             but in array form.
-                                
+
         Returns: poke_name from cmd or empty string
         """
         # get length of cmd_text_arr
@@ -181,7 +178,7 @@ class Command:
                 # add the indexed str to poke_name
                 poke_name += cmd_text_arr[index]
 
-                # add a space in between words unless it's 
+                # add a space in between words unless it's
                 # the last word in the pokemons name
                 if index < cmd_len - 2:
 
@@ -198,12 +195,11 @@ class Command:
 
             # return the last index of the array
             return poke_name
-        
+
         # other wise there is no pokename so return empty strings
         return poke_name
-        
 
-    def get_users(self, action: str, poke_name:str, channel_id: str):
+    def get_users(self, action: str, poke_name: str, channel_id: str):
         """ Gets the users associated with the command.
 
             Args:
@@ -211,7 +207,7 @@ class Command:
                 action - the command that will be executed
                 poke_name - pokemon name associated with the user
                 channel_id - channel id of associated user
-                    
+
             Returns: An array of user(s)
         """
         user_name = ""
@@ -234,8 +230,8 @@ class Command:
             user_name = response["items"][0]["snippet"]["title"]
 
             # make a new user / fill in user details
-                # poke_name
-                # channel_id
+            # poke_name
+            # channel_id
             user = [self.NuzlockeUser(user_name, poke_name, channel_id)]
 
             # return user
@@ -244,32 +240,32 @@ class Command:
         # otherwise check if the action is !release
         elif action == "!release":
 
-            # search the database by poke_name, returning the 
+            # search the database by poke_name, returning the
             # channel_id,   poke_name, and user_name
             cursor.execute("SELECT channel_id, poke_name, user_name \
                             FROM users \
                             WHERE poke_name = ? \
                             AND in_this_run='true'",
-                            (poke_name,))
+                           (poke_name,))
 
             user_data = cursor.fetchone()
 
-            # if the user data isn't empty fill it 
-            if user_data != None:
-            
+            # if the user data isn't empty fill it
+            if user_data is not None:
+
                 channel_id = user_data[0]
                 poke_name = user_data[1]
                 user_name = user_data[2]
 
-            # make a new user / set 
+            # make a new user / set
             # channel_id
-            # poke_name 
+            # poke_name
             # user_name
             user = [
                 self.NuzlockeUser(
-                    user_name, 
-                    poke_name, 
-                    channel_id, 
+                    user_name,
+                    poke_name,
+                    channel_id,
                     ""
                     )
                 ]
@@ -280,13 +276,13 @@ class Command:
         elif action == "!newrun":
             # the user(s) exists
 
-            # search the database by in the in_the_run, returning 
+            # search the database by in the in_the_run, returning
             # channel_ids, and user_names, poke_name
             cursor.execute("SELECT channel_id, poke_name, user_name \
                             FROM users \
                             WHERE in_this_run='true' \
                             AND banned='false'")
-            
+
             users = cursor.fetchall()
 
             users_arr = []
@@ -299,14 +295,14 @@ class Command:
                 poke_name = users[index][1]
                 user_name = users[index][2]
 
-                # make a new user / set 
+                # make a new user / set
                 # user_name
                 # poke_name
                 # channel_id
                 user = self.NuzlockeUser(
-                    user_name, 
-                    poke_name, 
-                    channel_id, 
+                    user_name,
+                    poke_name,
+                    channel_id,
                     "")
 
                 # append to user_arr
@@ -322,7 +318,7 @@ class Command:
         else:
             # the user(s) exists
 
-            # search the database returning all banned users with their 
+            # search the database returning all banned users with their
             # user_name, and ban_id
             cursor.execute("SELECT user_name, ban_id \
                             FROM users \
@@ -350,15 +346,14 @@ class Command:
 
             return users_arr
 
-
     def new_run(self, users, cursor: sqlite3.Cursor) -> None:
-        """Sets all pokemon in the run to the banned status. 
+        """Sets all pokemon in the run to the banned status.
                 Also bans all the users in youtube chat.
 
-            Args: 
+            Args:
                     self(Command) - a command class object
-                    users(list[self.user]) - 
-                    cursor - 
+                    users(list[self.user]) -
+                    cursor -
 
             Returns:
         """
@@ -368,12 +363,12 @@ class Command:
             # ban this user
             self.release(user, cursor)
 
-        # release all the pokemon 
+        # release all the pokemon
             # method: release all
 
         num_of_users = len(users)
 
-        # Update the database and seet the users in 
+        # Update the database and seet the users in
         # this run to be banned and not in the run anymore.
         cursor.execute("UPDATE users \
                         SET banned='true', \
@@ -384,11 +379,10 @@ class Command:
 
         self.send_suc(success_str)
 
-
     def real_pokemon(self, user_poke_name: str) -> bool:
         """Returns if the pokemon is a real pokemon
 
-            Args: 
+            Args:
                 self(Command): command class object
                 user_poke_name(Str): poke name the author entered
 
@@ -397,7 +391,7 @@ class Command:
         """
 
         # connect to pokemon database
-        conn = sqlite3.connect('databases/pokemon.db') 
+        conn = sqlite3.connect('databases/pokemon.db')
         cursor = conn.cursor()
 
         # get all the pokemon names
@@ -413,7 +407,7 @@ class Command:
             # save the og pokemon name with spaces/caps
             orignial_name = poke_name[0]
 
-            # assign the one str in the arr poke_name 
+            # assign the one str in the arr poke_name
             # to poke_name for ease
             poke_name = poke_name[0]
 
@@ -428,60 +422,58 @@ class Command:
             # check if the poke_name is in the database
             if tmp_poke_name == poke_name:
 
-                # set the cmds pokee_name to the pokemon name 
+                # set the cmds pokee_name to the pokemon name
                 # with white space and caps
                 user_poke_name = orignial_name
 
                 # return true
                 return True
-        
+
         # return false
         return False
 
-
     def release(self, user, cursor: sqlite3.Cursor) -> None:
-        """To be used when a pokemon is released in the wild. 
+        """To be used when a pokemon is released in the wild.
             This bans the users assigned to that pokemon
 
-        Args: 
+        Args:
             self - a command class object
             cursor - belongs to the nuzlocke database
         """
         # find out if the pokemon thee user is seraching for is real
         real_pokemon = self.real_pokemon(user.poke_name)
 
-
         # grab the result from the database
         cursor.execute("SELECT user_name From users WHERE \
                         poke_name = ? \
-                        AND in_this_run='true'", 
-                        (user.poke_name,))
-        
+                        AND in_this_run='true'",
+                       (user.poke_name,))
 
         result = cursor.fetchone()
 
         # if there is a result then execute a release on the pokemon
-        if result != None and real_pokemon:
+        if result is not None and real_pokemon:
 
             # execute datebase update
             cursor.execute("UPDATE users\
                             SET banned='true' \
                             WHERE poke_name = ? \
-                            AND channel_id = ?", 
-                            (user.poke_name, user.channel_id ))
-
+                            AND channel_id = ?",
+                           (user.poke_name, user.channel_id))
 
             request = self.youtube.liveChatBans().insert(
                 part="snippet",
                 body={
-                "snippet": {
-                    "liveChatId": f"{self.livechat_id}",
-                    "type": "permanent",
-                    "bannedUserDetails": {
-                    "channelId": f"{user.channel_id}"
+                    "snippet":
+                        {
+                            "liveChatId": f"{self.livechat_id}",
+                            "type": "permanent",
+                            "bannedUserDetails":
+                            {
+                                "channelId": f"{user.channel_id}"
+                            }
+                        }
                     }
-                }
-                }
             )
             response = request.execute()
 
@@ -489,9 +481,9 @@ class Command:
 
             cursor.execute("UPDATE users SET \
                            ban_id = ? \
-                           WHERE channel_id = ?", 
-                           (ban_id,user.channel_id))
-                
+                           WHERE channel_id = ?",
+                           (ban_id, user.channel_id))
+
             # send success reply
             self.send_suc()
 
@@ -510,14 +502,18 @@ class Command:
         request = self.youtube.liveChatMessages().insert(
             part="snippet",
             body={
-                "snippet": {
-                "liveChatId": f"{self.livechat_id}",
-                "type": "textMessageEvent",
-                "textMessageDetails": {
-                    "messageText": f"@{self.author_name} Error: {err_str}"
+                "snippet":
+                    {
+                        "liveChatId": f"{self.livechat_id}",
+                        "type": "textMessageEvent",
+                        "textMessageDetails":
+                        {
+                            "messageText": f"@{self.author_name} Error: \
+                                                                    {err_str}"
+                        }
+                    }
                 }
-                }
-            })
+            )
 
         # send message
         request.execute()
@@ -530,22 +526,21 @@ class Command:
                 err_str - a preset success message
         """
 
-        # QUOTA COST 50    
+        # QUOTA COST 50
         request = self.youtube.liveChatMessages().insert(
-        part="snippet",
-        body={
-            "snippet": {
-            "liveChatId": f"{self.livechat_id}",
-            "type": "textMessageEvent",
-            "textMessageDetails": {
-                "messageText": f"@{self.author_name} success"
-            }
-            }
-        })
+            part="snippet",
+            body={
+                "snippet": {
+                    "liveChatId": f"{self.livechat_id}",
+                    "type": "textMessageEvent",
+                    "textMessageDetails": {
+                        "messageText": f"@{self.author_name} success"
+                    }
+                }
+            })
 
         # send message
         request.execute()
-
 
     def set_cmd(self, msg_text_arr: list[str]) -> None:
         """ Sets all the cmd attributes from the msg
@@ -559,7 +554,7 @@ class Command:
 
         # use the actions to determine the length
         if self.action == "!assign":
-            poke_name_length = text_arr_len - 1 
+            poke_name_length = text_arr_len - 1
 
         elif self.action == "!release":
             poke_name_length = text_arr_len
@@ -569,14 +564,14 @@ class Command:
             # index at 1 to skip the action command beiong assigned
             i = 1
 
-            # assign all the indexs between the first and last to 
+            # assign all the indexs between the first and last to
             # the poke_name
             while i < poke_name_length:
 
                 # assign indexed text to poke_name
                 self.poke_name += msg_text_arr[i]
 
-                # add a space inbetween while if the pokemons name 
+                # add a space inbetween while if the pokemons name
                 # and not at the end of their name.
                 # i.e: "Roaring Moon", not "Roaring Moon "
                 if i < text_arr_len - 2:
@@ -584,22 +579,19 @@ class Command:
                     # add space
                     self.poke_name += ' '
 
-                # increase the index
-                i+=1
+                i += 1
 
             if text_arr_len > 2:
                 # assign the channel id to the command channel_id
                 self.channel_id = msg_text_arr[text_arr_len - 1]
 
-
     def load_cmd(self, msg: Message, youtube, livechat_id: str) -> None:
-
         """ Sets all the cmd attributes from the msg
 
-            Args: 
+            Args:
                 msg - Message class
-                
-            Returns: 
+
+            Returns:
                 An array with the msg split into strings
         """
 
@@ -632,24 +624,22 @@ class Command:
             # get the associated users with the command
             self.users = self.get_users(self.action, poke_name, channel_id)
 
-
     def set_live_chat_id(self, live_chat_id: str) -> None:
         """Sets the set_live_chat_id to the cmd object """
 
         self.live_chat_id = live_chat_id
 
-
     def set_user_name(self, channel_id: str, youtube) -> None:
         """Sets the user_name according the the action statement. """
-        
+
         # check if the action is assign
         if self.action == "!assign":
 
             # use channel id to find display name
             request = youtube.channels().list(
-            part="snippet",
-            id=f"{channel_id}"
-            )
+                part="snippet",
+                id=f"{channel_id}"
+                )
 
             # sending request and getting response
             response = request.execute()
@@ -670,12 +660,12 @@ class Command:
             cursor.execute("SELECT user_name \
                            FROM users WHERE \
                            poke_name = ? \
-                           AND in_this_run='true'", 
+                           AND in_this_run='true'",
                            (self.poke_name.capitalize()))
 
             self.user_name = cursor.fetchone()[0]
 
-        #otherwise assume it's newrun/victory
+        # otherwise assume it's newrun/victory
         else:
             self.user_name = ""
 
@@ -693,7 +683,6 @@ class Command:
         for item in items:
             print(item)
 
-
     def standarize_msg(self, msg_text: str) -> list[str]:
         """ Executes command, mainly sql commands for the database
 
@@ -701,7 +690,7 @@ class Command:
             msg_text - text from the msg class
 
         Returns:
-            An array with the msg split into strings 
+            An array with the msg split into strings
         """
 
         # Strip the msg_text of white space
@@ -712,8 +701,7 @@ class Command:
 
         return msg_text
 
-
-    def useable_pokemon(self, user_poke_name, 
+    def useable_pokemon(self, user_poke_name,
                         cursor: sqlite3.Cursor) -> bool:
         """Checks if the pokemon has already been used in this run
 
@@ -724,7 +712,7 @@ class Command:
         Returns:
             An array with the msg split into strings
         """
-        
+
         # get all the pokemon that are currently in the run
         cursor.execute("SELECT poke_name \
                        FROM users \
@@ -743,7 +731,7 @@ class Command:
 
                 # return false
                 return False
-        
+
         # return true
         return True
 
@@ -756,7 +744,7 @@ class Command:
         Returns:
             An array with the msg split into strings
     """
-    def useable_channel(self, user_channel_id, 
+    def useable_channel(self, user_channel_id,
                         cursor: sqlite3.Cursor) -> bool:
 
         # gather user names in table
@@ -775,14 +763,14 @@ class Command:
                 return False
 
         return True
-    
+
     def valid_command_check(self, msg: Message) -> bool:
-        """Checks the command is a valid command 
+        """Checks the command is a valid command
 
         Args:
             self - a command class object
             msg - message from youtube chat
-                
+
         Returns: None
         """
 
@@ -796,10 +784,9 @@ class Command:
             # strip the first ! away
             temp_text = temp_text.replace('!', '', 1)
 
-            # split the text 
+            # split the text
             temp_text_arr = temp_text.split(' ')
             user_cmd_len = len(temp_text_arr)
-
 
             # for commands in valid commands
             for cmd in VALID_CMDS:
@@ -807,17 +794,15 @@ class Command:
                 # check if the text is the current command
                 if temp_text_arr[0] == cmd.cmd_str:
 
-                    # check that the user cmd has the correct 
+                    # check that the user cmd has the correct
                     # amount of params
                     if cmd.params_req == user_cmd_len:
 
                         # return true
                         return True
-        
-    
+
         # the text isn't a valid command
         return False
-    
 
     def victory(self, users, cursor: sqlite3.Cursor) -> None:
         """Unbans all users in chat and in the database
@@ -828,7 +813,7 @@ class Command:
 
             Returns: None
         """
-        
+
         # for user in users
         for user in users:
 
@@ -838,15 +823,14 @@ class Command:
             )
             request.execute()
 
-            # update sql 
+            # update sql
             cursor.execute("UPDATE users \
                            Set banned='false' \
-                           WHERE ban_id = ?", 
+                           WHERE ban_id = ?",
                            (user.ban_id,))
 
         # send success message
         self.send_suc()
-
 
     class NuzlockeUser:
         """ The nuzlocke user that is asscoited with the current command
@@ -859,7 +843,7 @@ class Command:
 
             Returns: None
         """
-        def __init__(self, user_name: str = "", poke_name: str = "", 
+        def __init__(self, user_name: str = "", poke_name: str = "",
                      channel_id: str = "", ban_id: str = ""):
             self.user_name = user_name
             self.poke_name = poke_name
@@ -872,12 +856,12 @@ class Command:
                 Args:
                     self - NuzlockeUser class
                     poke_name - the pokemon that is associated with the user
-                    
+
                 Returns: None
             """
 
             # make a connection to the nuzlocke database
-                        # creates a database first time it is ran
+            # creates a database first time it is ran
             conn = sqlite3.connect('databases/nuzlocke.db')
 
             # make a cursor to the database
@@ -888,7 +872,7 @@ class Command:
             cursor.execute("SELECT user_name, poke_name \
                            FROM users \
                            WHERE poke_name = ? \
-                           AND in_this_run='true'", 
+                           AND in_this_run='true'",
                            (poke_name.capitalize()))
 
             # fill in the user_name and poke_name from the search

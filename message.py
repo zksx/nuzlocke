@@ -1,6 +1,6 @@
 
 class Message:
-    def __init__(self="", author_name="", text="", 
+    def __init__(self="", author_name="", text="",
                  is_mod=False, is_owner=False) -> None:
         self.author_name = author_name
         self.text = text
@@ -10,16 +10,16 @@ class Message:
     # getters
     def get_author_name(self) -> None:
         return self.author_name
-    
+
     def get_is_mod(self) -> None:
         return self._is_mod
-    
+
     def get_is_owner(self) -> None:
         return self._is_owner
-    
+
     def get_text(self) -> None:
         return self._text
-    
+
     # setters
     def set_author_name(self, item) -> None:
         self.author_name = item["authorDetails"]["displayName"]

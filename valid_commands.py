@@ -1,12 +1,15 @@
 
-"""
-Class: valid_cmd
-Desc: Class to keep valid commands in to reference late
-"""
+
 class valid_cmd:
+    """
+    Class: valid_cmd
+    Desc: Class to keep valid commands in to reference late
+    """
+
     def __init__(self, cmd_str, params_req):
         self.cmd_str = cmd_str
         self.params_req = params_req
+
 
 assign_cmd = valid_cmd("assign", 3)
 
