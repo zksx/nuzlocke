@@ -1,6 +1,7 @@
 import sqlite3
 from valid_commands import VALID_CMDS
 from message import Message
+from typing import *
 
 
 
@@ -203,17 +204,15 @@ class Command:
         
 
     def get_users(self, action: str, poke_name:str, channel_id: str):
-        """ Gets the users associated with the command. This could be 
-                one user in the case of release/assign or many users 
-                such as with victory and newrun.
+        """ Gets the users associated with the command.
 
-        Args:
-            self - a command class object
-            action - the command that will be executed
-            poke_name - pokemon name associated with the user
-            channel_id - channel id of associated user
-                
-        Returns: An array of user(s)
+            Args:
+                self - a command class object
+                action - the command that will be executed
+                poke_name - pokemon name associated with the user
+                channel_id - channel id of associated user
+                    
+            Returns: An array of user(s)
         """
         user_name = ""
 
@@ -356,10 +355,12 @@ class Command:
         """Sets all pokemon in the run to the banned status. 
                 Also bans all the users in youtube chat.
 
-        Args: 
-                self - a command class object
-                users - 
-                cursor - 
+            Args: 
+                    self(Command) - a command class object
+                    users(list[self.user]) - 
+                    cursor - 
+
+            Returns:
         """
         # for user in users
         for user in users:
@@ -384,14 +385,15 @@ class Command:
         self.send_suc(success_str)
 
 
-    def real_pokemon(self, user_poke_name) -> bool:
+    def real_pokemon(self, user_poke_name: str) -> bool:
         """Returns if the pokemon is a real pokemon
 
             Args: 
                 self(Command): command class object
+                user_poke_name(Str): poke name the author entered
 
             Returns:
-                bool: Determing if the pokemon is real or not
+                bool: Determining if the pokemon is real or not
         """
 
         # connect to pokemon database
