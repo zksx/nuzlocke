@@ -183,7 +183,7 @@ def get_stream_status(response: dict) -> bool:
 
     # if an error occurs that means there is not offlineAt property
     # and the stream is still live
-    except:
+    except Exception as e:
         return True
 
 
@@ -316,7 +316,7 @@ def nuzlocke_driver(youtube) -> None:
             livechat_id = sys.argv[2]
 
         # otherwise search for one
-        except:
+        except Exception as e:
             # find the live stream id
             livechat_id = look_for_live_event(youtube)
 
