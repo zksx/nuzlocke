@@ -11,14 +11,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 
-from message import Message
-from command import Command
+from commands import Message
+from commands import Command
 import constants
-
-
-# move this channel_id somewhere else,
-# ideally as a variable that gets passed down
-CHANNEL_ID = sys.argv[1]
 
 
 def command_check(msg: Message, youtube, livechat_id: str) -> None:
@@ -106,7 +101,6 @@ def get_creds():
 
     return credentials
 
-
 def get_live_chat_id(youtube, video_id: str) -> str:
     """Gets video id in order to find the live chat id of said video.
 
@@ -127,9 +121,9 @@ def get_live_chat_id(youtube, video_id: str) -> str:
     )
 
     # sending request and getting response
-    response = request.execute()
+    v_l_response = request.execute()
 
-    items = response["items"]
+    items = v_l_response["items"]
 
     # save livechat_id
     live_chat_id = items[0]["liveStreamingDetails"]["activeLiveChatId"]
@@ -140,7 +134,6 @@ def get_live_chat_id(youtube, video_id: str) -> str:
 
 def get_offline_at(response: dict):
     """ Returns offlineAt from youtube response"""
-
     return response["offlineAt"]
 
 
@@ -165,11 +158,12 @@ def get_permissions(msg) -> bool:
     return False
 
 
-def get_stream_status(response: dict) -> bool:
+def get_stream_status(lcm_l_response: dict) -> bool:
     """Checks if the stream is still live or not
 
         Args:
-            response - response object from Youtube API
+            response - live chat message list response object from 
+                        Youtube API
 
         Returns: if stream is live or not
     """
@@ -178,16 +172,17 @@ def get_stream_status(response: dict) -> bool:
 
     # try to get the offlineAt property
     try:
-        get_offline_at(response)
+        get_offline_at(lcm_l_response)
         return False
 
     # if an error occurs that means there is not offlineAt property
     # and the stream is still live
     except Exception as e:
+        print(e)
         return True
 
 
-def get_vid_id(youtube) -> str:
+def get_vid_id(youtube, channel_id) -> str:
     """Attempts to find video id of  a live video of said youtube channel.
 
         Args:
@@ -203,29 +198,29 @@ def get_vid_id(youtube) -> str:
 
     request = youtube.search().list(
         part="snippet",
-        channelId=f"{CHANNEL_ID}",
+        channelId=f"{channel_id}",
         eventType="live",
         maxResults=1,
         type="video"
     )
 
     # sending request and getting response
-    response = request.execute()
+    s_l_response = request.execute()
 
     # save vid_id
-    vid_id = response["items"][0]["id"]["videoId"]
+    vid_id = s_l_response["items"][0]["id"]["videoId"]
 
     # return video id
     return vid_id
 
 
-def get_wait_time(response: dict) -> int:
+def get_wait_time(lcm_l_response: dict) -> int:
     "Finds the pollingIntervalMillis"
 
-    return response["pollingIntervalMillis"]
+    return lcm_l_response["pollingIntervalMillis"]
 
 
-def look_for_live_event(youtube) -> str:
+def look_for_live_event(youtube, channel_id) -> str:
     """Continous looks for a live event until one is found
 
         Args:
@@ -244,7 +239,7 @@ def look_for_live_event(youtube) -> str:
         # attempt to find valid livechat id
         try:
             # find vid_id
-            vid_id = get_vid_id(youtube)
+            vid_id = get_vid_id(youtube, channel_id)
 
             # use video id to find livechatID
             live_chat_id = get_live_chat_id(youtube, vid_id)
@@ -274,27 +269,38 @@ def main() -> None:
         Returns:
             None
     """
+    
+    # check for channel_id in args
+    try:
+        channel_id = sys.argv[1]
 
-    # get oauth log in creds
-    credentials = get_creds()
+        # get oauth log in creds
+        credentials = get_creds()
 
-    # build youtube object
-    youtube = build("youtube", "v3", credentials=credentials)
+        # build youtube object
+        youtube = build("youtube", "v3", credentials=credentials)
 
-    print(look_for_live_event.__doc__)
+        # make msg object
+        nuzlocke_driver(youtube, channel_id)
 
-    # make msg object
-    nuzlocke_driver(youtube)
+        # close connection
+        youtube.close()
 
-    # close connection
-    youtube.close()
+    except IndexError:
+        print("NO CHANNEL ID GIVEN")
+
+    except Exception as e:
+        print(e)
+
+    print("SHUTTING DOWN")
 
 
-def nuzlocke_driver(youtube) -> None:
+def nuzlocke_driver(youtube, channel_id) -> None:
     """Handles the main loop for checking youtube msgs
 
         Args:
             youtube - socket object
+            channel_id - ID of channel to find live streams on
 
         Returns:
             None
@@ -318,7 +324,7 @@ def nuzlocke_driver(youtube) -> None:
         # otherwise search for one
         except Exception as e:
             # find the live stream id
-            livechat_id = look_for_live_event(youtube)
+            livechat_id = look_for_live_event(youtube, channel_id)
 
         print("Waiting for messages...")
 
@@ -337,22 +343,22 @@ def nuzlocke_driver(youtube) -> None:
             )
 
             # sending request and getting response
-            response = request.execute()
+            lcm_l_response = request.execute()
 
             # get offline response
-            streaming = get_stream_status(response)
+            streaming = get_stream_status(lcm_l_response)
 
             # save next page token
             # (used to gather chat messages from last gathered message)
-            next_page_token = get_next_pt(response)
+            next_page_token = get_next_pt(lcm_l_response)
 
             # save pollingIntervalMillis
             # ( used to wait until captureing next page)
-            poll_int_mils = get_wait_time(response)
+            poll_int_mils = get_wait_time(lcm_l_response)
 
             wait_time = poll_int_mils / constants.MILL_CONVER
 
-            parse_live_chat(response, youtube, livechat_id)
+            parse_live_chat(lcm_l_response, youtube, livechat_id)
 
             # wait the number poll interval time
             time.sleep(wait_time)

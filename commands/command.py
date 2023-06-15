@@ -1,10 +1,9 @@
 from typing import *
 
-from valid_commands import VALID_CMDS
-from message import Message
+from .valid_commands import VALID_CMDS
+from .message import Message
 
 import sqlite3
-
 
 class Command:
     """ Command class
@@ -148,8 +147,8 @@ class Command:
         return ""
 
     def get_poke_name(self, action: str, cmd_text_arr: list[str]):
-        """Gets the poke_name from the command the user entered via youtube
-                if there is a poke_name.
+        """Gets the poke_name from the command the user entered via youtube chat
+            if there is a poke_name.
 
         Args:
             self - a command class object
@@ -391,7 +390,7 @@ class Command:
         """
 
         # connect to pokemon database
-        conn = sqlite3.connect('databases/pokemon.db')
+        conn = sqlite3.connect('../databases/pokemon.db')
         cursor = conn.cursor()
 
         # get all the pokemon names
