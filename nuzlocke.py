@@ -35,7 +35,6 @@ def command_check(msg: Message, youtube, livechat_id: str) -> None:
         # check if they are running a command
         if msg.text[0] == '!' and len(msg.text) > 1:
 
-            # make a command class
             cmd = Command()
 
             # fill command with data
@@ -44,7 +43,6 @@ def command_check(msg: Message, youtube, livechat_id: str) -> None:
             # if command is valid
             if cmd.is_valid:
 
-                # execute command
                 cmd.execute()
 
             # otherwise command isn't valid
@@ -112,23 +110,18 @@ def get_live_chat_id(youtube, video_id: str) -> str:
             live_chat_id
     """
 
-    # use channels id to search for live event types.
-    # QUOTA COST = 1
     request = youtube.videos().list(
         part="liveStreamingDetails",
         id=f"{video_id}",
         maxResults=1
     )
 
-    # sending request and getting response
     v_l_response = request.execute()
 
     items = v_l_response["items"]
 
-    # save livechat_id
     live_chat_id = items[0]["liveStreamingDetails"]["activeLiveChatId"]
 
-    # return video id
     return live_chat_id
 
 
@@ -195,8 +188,6 @@ def get_vid_id(youtube, channel_id) -> str:
             video id of live stream
     """
 
-    # use channels id to search for live event types.
-    # QUOTA COST = 100
     input("You're about to search, press enter to continue: ")
 
     request = youtube.search().list(
@@ -207,19 +198,15 @@ def get_vid_id(youtube, channel_id) -> str:
         type="video"
     )
 
-    # sending request and getting response
     s_l_response = request.execute()
 
-    # save vid_id
     vid_id = s_l_response["items"][0]["id"]["videoId"]
 
-    # return video id
     return vid_id
 
 
 def get_wait_time(lcm_l_response: dict) -> int:
     "Finds the pollingIntervalMillis"
-
     return lcm_l_response["pollingIntervalMillis"]
 
 
@@ -257,9 +244,6 @@ def look_for_live_event(youtube, channel_id) -> str:
         # otherwise livechat id was not found
         except Exception as e:
             print("No id, waiting 5 mins")
-            # test what e is, this can be used for error handling
-            # print(e)
-            # wait 5 minutes before retrying
             time.sleep(constants.FIVE_MINS)
 
 
@@ -282,10 +266,8 @@ def main() -> None:
         # get oauth log in creds
         credentials = get_creds()
 
-        # build youtube object
         youtube = build("youtube", "v3", credentials=credentials)
 
-        # make msg object
         nuzlocke_driver(youtube, channel_id)
 
         # close connection
@@ -321,7 +303,6 @@ def nuzlocke_driver(youtube, channel_id) -> None:
         # try to set the livechat_id using argv
         if argv_len >= 2:
 
-            # set live_chat id to the argument passed in
             livechat_id = sys.argv[2]
 
         # otherwise search for one
@@ -336,8 +317,6 @@ def nuzlocke_driver(youtube, channel_id) -> None:
         # while livestream is alive
         while streaming:
 
-            # making request request for chat messages
-            # QUOTA COST = 20
             request = youtube.liveChatMessages().list(
 
                 liveChatId=f"{livechat_id}",
@@ -345,7 +324,6 @@ def nuzlocke_driver(youtube, channel_id) -> None:
                 pageToken=next_page_token
             )
 
-            # sending request and getting response
             lcm_l_response = request.execute()
 
             # get offline response
@@ -355,8 +333,6 @@ def nuzlocke_driver(youtube, channel_id) -> None:
             # (used to gather chat messages from last gathered message)
             next_page_token = get_next_pt(lcm_l_response)
 
-            # save pollingIntervalMillis
-            # ( used to wait until captureing next page)
             poll_int_mils = get_wait_time(lcm_l_response)
 
             wait_time = poll_int_mils / constants.MILL_CONVER
@@ -366,9 +342,6 @@ def nuzlocke_driver(youtube, channel_id) -> None:
             # wait the number poll interval time
             time.sleep(wait_time)
 
-            # if the stream is dead wait one minute, this is to avoid a
-            # spam loop of finding the livechatID but the streeam is
-            # offline. This Quota cost is insane
             if not streaming:
                 print("Stream is offline, waiting 5 mins")
                 time.sleep(constants.FIVE_MINS)
@@ -384,16 +357,13 @@ def parse_live_chat(response: dict, youtube, livechat_id: str) -> None:
             None
     """
 
-    # for the items in the reesponsee
     for item in response["items"]:
 
-        # make msg object
         msg = Message()
 
         # fill message with text from user
         msg.load_msg(item)
 
-        # print the display message
         print(msg.author_name + ": " + msg.text)
 
         # check if the msg is a command
