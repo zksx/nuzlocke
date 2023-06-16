@@ -174,6 +174,9 @@ def get_stream_status(lcm_l_response: dict) -> bool:
     try:
         get_offline_at(lcm_l_response)
         return False
+    
+    except KeyError as e:
+        return True
 
     # if an error occurs that means there is not offlineAt property
     # and the stream is still live
@@ -269,9 +272,11 @@ def main() -> None:
         Returns:
             None
     """
+
+    argv_len = len(sys.argv)
     
     # check for channel_id in args
-    try:
+    if argv_len > 1:
         channel_id = sys.argv[1]
 
         # get oauth log in creds
@@ -286,11 +291,8 @@ def main() -> None:
         # close connection
         youtube.close()
 
-    except IndexError:
+    else:
         print("NO CHANNEL ID GIVEN")
-
-    except Exception as e:
-        print(e)
 
     print("SHUTTING DOWN")
 
@@ -311,18 +313,19 @@ def nuzlocke_driver(youtube, channel_id) -> None:
     wait_time = 0
     livechat_id = None
     done = False
+    argv_len = len(sys.argv)
 
     # while the program should be running
     while not done:
 
         # try to set the livechat_id using argv
-        try:
+        if argv_len >= 2:
 
             # set live_chat id to the argument passed in
             livechat_id = sys.argv[2]
 
         # otherwise search for one
-        except Exception as e:
+        else:
             # find the live stream id
             livechat_id = look_for_live_event(youtube, channel_id)
 
@@ -381,10 +384,8 @@ def parse_live_chat(response: dict, youtube, livechat_id: str) -> None:
             None
     """
 
-    items = response["items"]
-
     # for the items in the reesponsee
-    for item in items:
+    for item in response["items"]:
 
         # make msg object
         msg = Message()

@@ -1,4 +1,3 @@
-
 import pytest
 
 from nuzlocke import *
@@ -10,13 +9,13 @@ def test_get_offline_at():
     with pytest.raises(KeyError):
             
             lcm_l_reponse = responses_dict["live chat message list"]
-            get_offline_at(lcm_l_reponse.json_data)
+            get_offline_at(lcm_l_reponse.json())
 
 def test_get_next_pt():
 
     lcm_l_reponse = responses_dict["live chat message list"]
 
-    result = get_next_pt(lcm_l_reponse.json_data)
+    result = get_next_pt(lcm_l_reponse.json())
 
     assert result == "GJjzsISZwf8CIKPQ2byZwf8C"
 
@@ -24,7 +23,7 @@ def test_get_wait_time():
 
     lcm_l_reponse = responses_dict["live chat message list"]
 
-    result = get_wait_time(lcm_l_reponse.json_data)
+    result = get_wait_time(lcm_l_reponse.json())
 
     assert result == 4802
 
@@ -78,12 +77,12 @@ def test_get_stream_status():
     # RETURN TRUE
     lcm_l_reponse = responses_dict["live chat message list"]
 
-    result = get_stream_status(lcm_l_reponse.json_data)
+    result = get_stream_status(lcm_l_reponse.json())
     
     assert result == True
 
     lcm_l_offline_reponse = responses_dict["live chat message list offline"]
 
-    result = get_stream_status(lcm_l_offline_reponse.json_data)
+    result = get_stream_status(lcm_l_offline_reponse.json())
     
     assert result == False

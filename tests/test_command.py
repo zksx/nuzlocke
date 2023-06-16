@@ -1,6 +1,5 @@
 import sqlite3
 
-
 from commands.command import Command
 from commands.message import Message
 
@@ -93,7 +92,7 @@ def test_standardize_msg():
         assert result == ua_victory
 
 def test_useable_pokemon():
-        conn = sqlite3.connect('../databases/test_nuzlocke.db')
+        conn = sqlite3.connect('databases/test_nuzlocke.db')
         cursor = conn.cursor()
 
         # TEST 1 Testing for the pokemon already being in the database
@@ -127,3 +126,6 @@ def test_valid_command_check():
     assert result_v == True
     assert result_bad == False
     assert result_bad2 == False
+
+def test_get_users():
+     pass

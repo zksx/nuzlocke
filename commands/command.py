@@ -1,9 +1,13 @@
 from typing import *
+from pathlib import Path
+
+import sqlite3
 
 from .valid_commands import VALID_CMDS
 from .message import Message
 
-import sqlite3
+nuz_db_pth = Path("databases/nuzlocke.db")
+pke_db_pth = Path("databases/pokemon.db")
 
 class Command:
     """ Command class
@@ -89,7 +93,7 @@ class Command:
         """
 
         # creates a database first time it is ran
-        conn = sqlite3.connect("databases/nuzlocke.db")
+        conn = sqlite3.connect(nuz_db_pth)
 
         # create a cursor
         cursor = conn.cursor()
@@ -117,7 +121,7 @@ class Command:
         # print he data base
         cmd.show_data(cursor)
 
-    def get_channel_id(self, action: str, cmd_text_arr: list[str]):
+    def get_channel_id(self, action: str, cmd_text_arr: list[str]) -> str:
         """Checks if the command is has a action that has a channel_id
             related to it. If it does it returns the channel id.
 
@@ -146,7 +150,7 @@ class Command:
 
         return ""
 
-    def get_poke_name(self, action: str, cmd_text_arr: list[str]):
+    def get_poke_name(self, action: str, cmd_text_arr: list[str]) -> str:
         """Gets the poke_name from the command the user entered via youtube chat
             if there is a poke_name.
 
@@ -212,7 +216,7 @@ class Command:
         user_name = ""
 
         # creates a database first time it is ran
-        conn = sqlite3.connect("databases/nuzlocke.db")
+        conn = sqlite3.connect(nuz_db_pth)
 
         cursor = conn.cursor()
 
@@ -374,9 +378,8 @@ class Command:
                         in_this_run='false' \
                         WHERE in_this_run='true'")
 
-        success_str = f"{num_of_users} helpless victims have been banned"
 
-        self.send_suc(success_str)
+        self.send_suc()
 
     def real_pokemon(self, user_poke_name: str) -> bool:
         """Returns if the pokemon is a real pokemon
@@ -390,7 +393,7 @@ class Command:
         """
 
         # connect to pokemon database
-        conn = sqlite3.connect('../databases/pokemon.db')
+        conn = sqlite3.connect(pke_db_pth)
         cursor = conn.cursor()
 
         # get all the pokemon names
@@ -465,7 +468,7 @@ class Command:
                 body={
                     "snippet":
                         {
-                            "liveChatId": f"{self.livechat_id}",
+                            "liveChatId": f"{self.live_chat_id}",
                             "type": "permanent",
                             "bannedUserDetails":
                             {
@@ -503,7 +506,7 @@ class Command:
             body={
                 "snippet":
                     {
-                        "liveChatId": f"{self.livechat_id}",
+                        "liveChatId": f"{self.live_chat_id}",
                         "type": "textMessageEvent",
                         "textMessageDetails":
                         {
@@ -530,7 +533,7 @@ class Command:
             part="snippet",
             body={
                 "snippet": {
-                    "liveChatId": f"{self.livechat_id}",
+                    "liveChatId": f"{self.live_chat_id}",
                     "type": "textMessageEvent",
                     "textMessageDetails": {
                         "messageText": f"@{self.author_name} success"
@@ -584,7 +587,7 @@ class Command:
                 # assign the channel id to the command channel_id
                 self.channel_id = msg_text_arr[text_arr_len - 1]
 
-    def load_cmd(self, msg: Message, youtube, livechat_id: str) -> None:
+    def load_cmd(self, msg: Message, youtube, live_chat_id: str) -> None:
         """ Sets all the cmd attributes from the msg
 
             Args:
@@ -601,7 +604,7 @@ class Command:
         self.set_youtube(youtube)
 
         # set live chat id
-        self.set_livechat_id(livechat_id)
+        self.set_live_chat_id(live_chat_id)
 
         # split the text into an array
         cmd_text_arr = self.standarize_msg(msg.text)
@@ -650,7 +653,7 @@ class Command:
         elif self.action == "!release":
 
             # creates a database first time it is ran
-            conn = sqlite3.connect("databases/nuzlocke.db")
+            conn = sqlite3.connect(nuz_db_pth)
 
             # create a cursor
             cursor = conn.cursor()
@@ -861,7 +864,7 @@ class Command:
 
             # make a connection to the nuzlocke database
             # creates a database first time it is ran
-            conn = sqlite3.connect('databases/nuzlocke.db')
+            conn = sqlite3.connect(nuz_db_pth)
 
             # make a cursor to the database
             cursor = conn.cursor()
