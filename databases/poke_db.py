@@ -51,14 +51,12 @@ df['Special Attack'] = H
 df['Special Defense'] = I
 df['Speed'] = J
 
-print(df)
-
-conn = sqlite3.connect('databases/{}.db'.format("pokemon")) # creates file
+conn = sqlite3.connect('{}.db'.format("nuzlocke")) # creates file
 df.to_sql("pokemon", conn, if_exists='replace', index=False) # writes to file
-
 
 cursor = conn.cursor()
 
+# Statement excludes mega evolutions
 cursor.execute("DELETE FROM pokemon WHERE EXISTS \
                (SELECT 1 FROM pokemon p WHERE p.Name = pokemon.Name \
                AND p.rowid < pokemon.rowid);")

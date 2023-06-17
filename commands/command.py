@@ -6,8 +6,7 @@ import sqlite3
 from .valid_commands import VALID_CMDS
 from .message import Message
 
-nuz_db_pth = Path("databases/nuzlocke.db")
-pke_db_pth = Path("databases/pokemon.db")
+db_pth = Path("databases/nuzlocke.db")
 
 class Command:
     """ Command class
@@ -84,7 +83,7 @@ class Command:
             cmd - a command class object
         """
 
-        conn = sqlite3.connect(nuz_db_pth)
+        conn = sqlite3.connect(db_pth)
         cursor = conn.cursor()
 
         # check for each command
@@ -199,7 +198,7 @@ class Command:
         """
         user_name = ""
 
-        conn = sqlite3.connect(nuz_db_pth)
+        conn = sqlite3.connect(db_pth)
         cursor = conn.cursor()
 
         # check if the action is assign
@@ -349,7 +348,7 @@ class Command:
                 bool: Determining if the pokemon is real or not
         """
 
-        conn = sqlite3.connect(pke_db_pth)
+        conn = sqlite3.connect(db_pth)
         cursor = conn.cursor()
         cursor.execute("SELECT name FROM pokemon;")
         poke_names = cursor.fetchall()
@@ -583,7 +582,7 @@ class Command:
         # otherwise check it's release
         elif self.action == "!release":
 
-            conn = sqlite3.connect(nuz_db_pth)
+            conn = sqlite3.connect(db_pth)
             cursor = conn.cursor()
             cursor.execute("SELECT user_name \
                            FROM users WHERE \
@@ -777,7 +776,7 @@ class Command:
                 Returns: None
             """
 
-            conn = sqlite3.connect(nuz_db_pth)
+            conn = sqlite3.connect(db_pth)
             cursor = conn.cursor()
 
             # search the database for the pokemon's name that are still

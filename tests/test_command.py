@@ -102,7 +102,7 @@ def test_useable_pokemon():
 
         # TEST 2 Testing for the pokemon not being in the database
         user = cmd2.users[0]
-        result = cmd.useable_pokemon(user.poke_name, cursor)
+        result = cmd2.useable_pokemon(user.poke_name, cursor)
         assert result == True
 
 def test_valid_command_check():

@@ -18,7 +18,7 @@ import constants
 
 def command_check(msg: Message, youtube, livechat_id: str) -> None:
     """Checks msg to seee if it is a valid cmd by owner/mod
-
+f
         Args:
             youtube - socket object
             livechat_id - string of live chat id
@@ -26,7 +26,7 @@ def command_check(msg: Message, youtube, livechat_id: str) -> None:
         Returns: livechatId
     """
 
-    # check if the message is from a user who can do commands
+    # check if the message is from a user who can do commandsf
     has_control = get_permissions(msg)
 
     # check if msg is from owner or mod
@@ -301,7 +301,7 @@ def nuzlocke_driver(youtube, channel_id) -> None:
     while not done:
 
         # try to set the livechat_id using argv
-        if argv_len >= 2:
+        if argv_len > 2:
 
             livechat_id = sys.argv[2]
 
