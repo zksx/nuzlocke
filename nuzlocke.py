@@ -1,4 +1,3 @@
-
 # Author: zksx
 # Version 0.0
 
@@ -116,9 +115,9 @@ def get_live_chat_id(youtube, video_id: str) -> str:
         maxResults=1
     )
 
-    v_l_response = request.execute()
+    video_list_resp = request.execute()
 
-    items = v_l_response["items"]
+    items = video_list_resp["items"]
 
     live_chat_id = items[0]["liveStreamingDetails"]["activeLiveChatId"]
 
@@ -151,7 +150,7 @@ def get_permissions(msg) -> bool:
     return False
 
 
-def get_stream_status(lcm_l_response: dict) -> bool:
+def is_stream_alive(livechatmsg_list_resp: dict) -> bool:
     """Checks if the stream is still live or not
 
         Args:
@@ -165,7 +164,7 @@ def get_stream_status(lcm_l_response: dict) -> bool:
 
     # try to get the offlineAt property
     try:
-        get_offline_at(lcm_l_response)
+        get_offline_at(livechatmsg_list_resp)
         return False
     
     except KeyError as e:
@@ -198,16 +197,16 @@ def get_vid_id(youtube, channel_id) -> str:
         type="video"
     )
 
-    s_l_response = request.execute()
+    search_list_resp = request.execute()
 
-    vid_id = s_l_response["items"][0]["id"]["videoId"]
+    vid_id = search_list_resp["items"][0]["id"]["videoId"]
 
     return vid_id
 
 
-def get_wait_time(lcm_l_response: dict) -> int:
+def get_wait_time(livechatmsg_list_resp: dict) -> int:
     "Finds the pollingIntervalMillis"
-    return lcm_l_response["pollingIntervalMillis"]
+    return livechatmsg_list_resp["pollingIntervalMillis"]
 
 
 def look_for_live_event(youtube, channel_id) -> str:
@@ -324,20 +323,20 @@ def nuzlocke_driver(youtube, channel_id) -> None:
                 pageToken=next_page_token
             )
 
-            lcm_l_response = request.execute()
+            livechatmsg_list_resp = request.execute()
 
             # get offline response
-            streaming = get_stream_status(lcm_l_response)
+            streaming = is_stream_alive(livechatmsg_list_resp)
 
             # save next page token
             # (used to gather chat messages from last gathered message)
-            next_page_token = get_next_pt(lcm_l_response)
+            next_page_token = get_next_pt(livechatmsg_list_resp)
 
-            poll_int_mils = get_wait_time(lcm_l_response)
+            poll_int_mils = get_wait_time(livechatmsg_list_resp)
 
             wait_time = poll_int_mils / constants.MILL_CONVER
 
-            parse_live_chat(lcm_l_response, youtube, livechat_id)
+            parse_live_chat(livechatmsg_list_resp, youtube, livechat_id)
 
             # wait the number poll interval time
             time.sleep(wait_time)

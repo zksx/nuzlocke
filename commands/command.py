@@ -546,7 +546,7 @@ class Command:
         self.set_live_chat_id(live_chat_id)
 
         # split the text into an array
-        cmd_text_arr = self.standarize_msg(msg.text)
+        cmd_text_arr = self.convert_to_array(msg.text)
 
         # set the action to be executed
         self.action = cmd_text_arr[0]
@@ -609,7 +609,7 @@ class Command:
         for item in items:
             print(item)
 
-    def standarize_msg(self, msg_text: str) -> list[str]:
+    def convert_to_array(self, msg_text: str) -> list[str]:
         """ Executes command, mainly sql commands for the database
 
         Args:
