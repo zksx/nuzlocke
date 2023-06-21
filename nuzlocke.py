@@ -21,7 +21,7 @@ def has_action(msg):
 
 def try_command(msg: Message, youtube, livechat_id: str) -> None:
     """Checks msg to seee if it is a valid cmd by owner/mod
-f
+
         Args:
             youtube - socket object
             livechat_id - string of live chat id
@@ -37,9 +37,9 @@ f
         contains_action = has_action(msg)
 
         if contains_action:
-            cmd = Command()
 
-            cmd.load_cmd(msg, youtube, livechat_id) # fill command with data
+            cmd = Command()
+            cmd.load_cmd(msg, youtube, livechat_id)
 
             if cmd.is_valid:
                 cmd.execute()
@@ -49,7 +49,6 @@ f
                 information"
 
                 cmd.send_err(error_str)
-
 
 def get_creds():
     """ Gets the creds to login to google account to be used the chat bot.
@@ -363,9 +362,8 @@ def parse_live_chat(response: dict, youtube, livechat_id: str) -> None:
 
         print(msg.author_name + ": " + msg.text)
 
-        # try to eexecute a command if possiblee
+        # try to execute a command if possiblee
         try_command(msg, youtube, livechat_id)
-
 
 if __name__ == "__main__":
     """ This is executed when run from the command line """

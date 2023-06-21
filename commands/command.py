@@ -34,6 +34,13 @@ class Command:
         self.live_chat_id = live_chat_id
         self.users = users
 
+    def insert_user_data_into_db(self, cursor, user):
+        # insert the name and nickname into the database
+        cursor.execute("INSERT INTO users \
+                        VALUES (?, ?, 'false', 'true', ?, ?, '' )",
+                        (user.user_name, user.poke_name,
+                        self.author_name, user.channel_id))
+
     def assign(self, user, cursor: sqlite3.Cursor) -> None:
         """Inserts user with asscoiated poke name in database
 
@@ -47,30 +54,22 @@ class Command:
         unique_pokemon = self.useable_pokemon(user.poke_name, cursor)
         real_pokemon = self.real_pokemon(user.poke_name)
 
-        # if the name is unique
         if unique_channel and unique_pokemon and real_pokemon:
 
-            # insert the name and nickname into the database
-            cursor.execute("INSERT INTO users \
-                            VALUES (?, ?, 'false', 'true', ?, ?, '' )",
-                           (user.user_name, user.poke_name,
-                            self.author_name, user.channel_id))
-
+            self.insert_user_data_into_db(cursor)
             self.send_suc()
 
-        # otherwise check if the name is not unique
         elif not unique_channel:
 
             error_str = f"This channel id has already been used"
             self.send_err(error_str)
 
-        # otherwise check that the pokmon is unique
         elif not unique_pokemon:
 
             error_str = f"This pokemon has already been used in this run"
             self.send_err(error_str)
 
-        # otherwise the giveen pokemon name was not an actual pokemon
+        # otherwise the given pokemon name was not an actual pokemon
         else:
 
             error_str = "something went wrong"
@@ -180,7 +179,7 @@ class Command:
 
         # other wise there is no pokename so return empty strings
         return poke_name
-    
+
     def get_user_name_from_channel_id(youtube, channel_id: str) -> str:
             
             # make a request for the users display name
@@ -266,7 +265,6 @@ class Command:
         if action == "!assign":
 
             user_name = self.get_user_name_from_channel_id(self.youtube, channel_id, poke_name)
-
             user = [self.NuzlockeUser(user_name, poke_name, channel_id)]
 
             return user
@@ -512,7 +510,6 @@ class Command:
                 }
             })
 
-        # send message
         request.execute()
 
     def set_cmd(self, msg_text_arr: list[str]) -> None:
