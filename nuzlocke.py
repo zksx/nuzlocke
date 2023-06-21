@@ -14,8 +14,12 @@ from commands import Message
 from commands import Command
 import constants
 
+def has_action(msg):
 
-def command_check(msg: Message, youtube, livechat_id: str) -> None:
+    return msg.text[0] == '!' and len(msg.text) > 1
+
+
+def try_command(msg: Message, youtube, livechat_id: str) -> None:
     """Checks msg to seee if it is a valid cmd by owner/mod
 f
         Args:
@@ -25,28 +29,22 @@ f
         Returns: livechatId
     """
 
-    # check if the message is from a user who can do commandsf
-    has_control = get_permissions(msg)
+    # check if the message is from a user who can do commands
+    from_mod_or_owner = get_permissions(msg)
 
-    # check if msg is from owner or mod
-    if has_control:
+    if from_mod_or_owner:
 
-        # check if they are running a command
-        if msg.text[0] == '!' and len(msg.text) > 1:
+        contains_action = has_action(msg)
 
+        if contains_action:
             cmd = Command()
 
-            # fill command with data
-            cmd.load_cmd(msg, youtube, livechat_id)
+            cmd.load_cmd(msg, youtube, livechat_id) # fill command with data
 
-            # if command is valid
             if cmd.is_valid:
-
                 cmd.execute()
 
-            # otherwise command isn't valid
             else:
-
                 error_str = "Not a valid action or doesn't have enough \
                 information"
 
@@ -365,8 +363,8 @@ def parse_live_chat(response: dict, youtube, livechat_id: str) -> None:
 
         print(msg.author_name + ": " + msg.text)
 
-        # check if the msg is a command
-        command_check(msg, youtube, livechat_id)
+        # try to eexecute a command if possiblee
+        try_command(msg, youtube, livechat_id)
 
 
 if __name__ == "__main__":
