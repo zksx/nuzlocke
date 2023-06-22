@@ -15,19 +15,11 @@ from commands import Command
 import constants
 
 def has_action(msg):
-
     return msg.text[0] == '!' and len(msg.text) > 1
 
 
 def try_command(msg: Message, youtube, livechat_id: str) -> None:
-    """Checks msg to seee if it is a valid cmd by owner/mod
-
-        Args:
-            youtube - socket object
-            livechat_id - string of live chat id
-
-        Returns: livechatId
-    """
+    """Checks msg to seee if it is a valid cmd by owner/mod"""
 
     # check if the message is from a user who can do commands
     from_mod_or_owner = get_permissions(msg)
@@ -50,12 +42,8 @@ def try_command(msg: Message, youtube, livechat_id: str) -> None:
 
                 cmd.send_err(error_str)
 
-def get_creds():
-    """ Gets the creds to login to google account to be used the chat bot.
-
-        Returns:
-            Creds
-    """
+def get_creds() -> str:
+    """ Gets the creds to login to google account to be used the chat bot."""
 
     credentials = None
 
@@ -96,15 +84,7 @@ def get_creds():
     return credentials
 
 def get_live_chat_id(youtube, video_id: str) -> str:
-    """Gets video id in order to find the live chat id of said video.
-
-        Args:
-            youtube - socket object
-            video_id - id of the video we're trying to get the chat live id for
-
-        Returns:
-            live_chat_id
-    """
+    """Gets video id in order to find the live chat id of said video"""
 
     request = youtube.videos().list(
         part="liveStreamingDetails",
@@ -122,24 +102,15 @@ def get_live_chat_id(youtube, video_id: str) -> str:
 
 
 def get_offline_at(response: dict):
-    """ Returns offlineAt from youtube response"""
     return response["offlineAt"]
 
 
 def get_next_pt(response: dict) -> int:
-    """ Returns nextPageToken from youtube response"""
     return response["nextPageToken"]
 
 
 def get_permissions(msg) -> bool:
-    """Checks to see if the message sent by the user has permissions
-
-        Args:
-            msg - youtube chat msg
-
-        Returns:
-            bool - if the user
-    """
+    """Checks to see if the message sent by the user has permissions"""
 
     if msg.is_mod or msg.is_owner:
         return True
@@ -148,14 +119,7 @@ def get_permissions(msg) -> bool:
 
 
 def is_stream_alive(livechatmsg_list_resp: dict) -> bool:
-    """Checks if the stream is still live or not
-
-        Args:
-            response - live chat message list response object from 
-                        Youtube API
-
-        Returns: if stream is live or not
-    """
+    """Checks if the stream is still live or not"""
     # TODO this seems BAD. The program should find if the reponse contains
     # "offlineAt" a different way that doesn't depend on error handling
 
@@ -175,14 +139,7 @@ def is_stream_alive(livechatmsg_list_resp: dict) -> bool:
 
 
 def get_vid_id(youtube, channel_id) -> str:
-    """Attempts to find video id of  a live video of said youtube channel.
-
-        Args:
-            youtube
-
-        Returns:
-            video id of live stream
-    """
+    """Attempts to find video id of  a live video of said youtube channel."""
 
     input("You're about to search, press enter to continue: ")
 
@@ -202,15 +159,11 @@ def get_vid_id(youtube, channel_id) -> str:
 
 
 def get_wait_time(livechatmsg_list_resp: dict) -> int:
-    "Finds the pollingIntervalMillis"
     return livechatmsg_list_resp["pollingIntervalMillis"]
 
 
 def look_for_live_event(youtube, channel_id) -> str:
-    """Continous looks for a live event until one is found
-
-        Args:
-            youtube - sokcet object
+    """Continously looks for a live event until one is found
 
         Returns:
             livechatId
@@ -244,14 +197,7 @@ def look_for_live_event(youtube, channel_id) -> str:
 
 
 def main() -> None:
-    """Gets login creds, builds youtube socket, and starts nuzlocke loop
-
-        Args:
-            youtube - socket object
-
-        Returns:
-            None
-    """
+    """Gets login creds, builds youtube socket, and starts nuzlocke loop"""
 
     argv_len = len(sys.argv)
     
@@ -276,15 +222,7 @@ def main() -> None:
 
 
 def nuzlocke_driver(youtube, channel_id) -> None:
-    """Handles the main loop for checking youtube msgs
-
-        Args:
-            youtube - socket object
-            channel_id - ID of channel to find live streams on
-
-        Returns:
-            None
-    """
+    """Handles the main loop for checking youtube msgs"""
 
     # variables
     next_page_token = ""
@@ -344,14 +282,7 @@ def nuzlocke_driver(youtube, channel_id) -> None:
 
 
 def parse_live_chat(response: dict, youtube, livechat_id: str) -> None:
-    """Makes message object prints messages from authors, calls the cmd func
-
-        Args:
-            response - response object from Youtube API
-
-        Returns:
-            None
-    """
+    """Makes message object prints messages from authors, calls the cmd func"""
 
     for item in response["items"]:
 
