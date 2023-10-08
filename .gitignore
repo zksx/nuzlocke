@@ -9,6 +9,10 @@ token.pickle
 *.db-journal
 *.sqbpro
 
+# tests
+tests/
+test_nuzlocke.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
