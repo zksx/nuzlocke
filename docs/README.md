@@ -118,7 +118,7 @@ _**NOTE:**_ The account you choose will be the account replying to commands in c
 
 # Roadmap 
 
-As of right now the next plan is to intergrate a website that is able to read/write to the database. Only mods of the stream or the stream owner themselves should be able to access the website.
+As of right now the next plan is to intergrate a website that is able to read/write to the database. Only mods of the stream or the stream owner themselves should be able to access the website. The code should also be restructed and redesigned in order to produce a more sound system. As of right now the biggest issue is the size of the commands.py file.
 
 # Help
 
